@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Иван Зотов](https://up.htmlacademy.ru/react/15/user/2415655).
-* Наставник: `Неизвестно`.
+* Студент: [Ivan Zotov](https://up.htmlacademy.ru/react/15/user/2415655).
+* Наставник: [Yulia Volkova](https://htmlacademy.ru/profile/id423707).
 
 ---
 
