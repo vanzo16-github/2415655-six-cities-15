@@ -26,7 +26,9 @@ function HeroScreen({placeCount}: HeroScreenProps): JSX.Element {
               <Sort/>
               <Places/>
             </section>
-            <Map/>
+            <div className="cities__right-section">
+              <Map/>
+            </div>
           </div>
         </div>
       </main>

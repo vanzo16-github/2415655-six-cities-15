@@ -19,7 +19,8 @@ function PlaceCard({ image, price, title, type, isPremium }: PlaceCardProps): JS
           <img
             className="place-card__image"
             src={image}
-            width="260" height="200"
+            width="260"
+            height="200"
             alt="Place image"
           />
         </a>
