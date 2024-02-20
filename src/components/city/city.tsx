@@ -1,8 +1,12 @@
-function City(): JSX.Element {
+type CityProps = {
+  city: string;
+}
+
+function City({city}: CityProps): JSX.Element {
   return (
     <li className="locations__item">
       <a className="locations__item-link tabs__item" href="#">
-        <span>Paris</span>
+        <span>{city}</span>
       </a>
     </li>
   );
