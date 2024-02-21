@@ -24,3 +24,5 @@ export const Apartments = [
     previewImage: 'img/apartment-02.jpg'
   }
 ];
+
+export const nearPlace = Apartments.splice(1);

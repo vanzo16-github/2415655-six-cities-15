@@ -1,8 +1,8 @@
 import Header from '../../components/header/header';
 import OfferContainer from '../../components/offer-container/offer-container';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
-import Map from '../../components/map/map';
 import NearPlaces from '../../components/near-places/near-places';
+import OfferMap from '../../components/offer-map/offer-map';
 
 function OfferScreen(): JSX.Element {
   return (
@@ -13,7 +13,7 @@ function OfferScreen(): JSX.Element {
         <section className="offer">
           <OfferGallery/>
           <OfferContainer/>
-          <Map/>
+          <OfferMap/>
         </section>
         <div className="container">
           <section className="near-places places">
