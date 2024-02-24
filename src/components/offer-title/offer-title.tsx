@@ -1,6 +1,13 @@
+import { Helmet } from 'react-helmet-async';
+
 function OfferTitle(): JSX.Element {
   return (
     <div className="offer__name-wrapper">
+      <Helmet>
+        <title>
+                  Beautiful &amp; luxurious studio at great location
+        </title>
+      </Helmet>
       <h1 className="offer__name">
                   Beautiful &amp; luxurious studio at great location
       </h1>

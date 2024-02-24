@@ -4,16 +4,20 @@ import CountPlaces from '../../components/count-places/count-places';
 import Locations from '../../components/locations/locations';
 import Places from '../../components/places/places';
 import Sort from '../../components/sort/sort';
+import { Helmet } from 'react-helmet-async';
 
-type HeroScreenProps = {
+type MainScreenProps = {
   placeCount: number;
 }
 
-function HeroScreen({placeCount}: HeroScreenProps): JSX.Element {
+function MainScreen({placeCount}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header/>
       <main className="page__main page__main--index">
+        <Helmet>
+          <title>Cities</title>
+        </Helmet>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <Locations/>
@@ -36,4 +40,4 @@ function HeroScreen({placeCount}: HeroScreenProps): JSX.Element {
   );
 }
 
-export default HeroScreen;
+export default MainScreen;

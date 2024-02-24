@@ -14,6 +14,7 @@ function OfferScreen(): JSX.Element {
           <OfferGallery/>
           <OfferContainer/>
           <OfferMap/>
+
         </section>
         <div className="container">
           <section className="near-places places">

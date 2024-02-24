@@ -1,4 +1,4 @@
-export const Apartments = [
+export const apartments = [
   {
     id: 1,
     title: 'Beautiful & luxurious apartment at great location',
@@ -25,4 +25,68 @@ export const Apartments = [
   }
 ];
 
-export const nearPlace = Apartments.splice(1);
+export const imageOffer = [
+  {
+    previewImage: 'img/apartment-01.jpg'
+  },
+  {
+    previewImage: 'img/room.jpg'
+  },
+  {
+    previewImage: 'img/apartment-02.jpg'
+  },
+  {
+    previewImage: 'img/apartment-01.jpg'
+  },
+  {
+    previewImage: 'img/room.jpg'
+  },
+  {
+    previewImage: 'img/apartment-02.jpg'
+  }
+];
+
+export const featuresOffer = [
+  {
+    title: 'Apartment',
+    type: 'offer__feature offer__feature--entire'
+  },
+  {
+    title: '3 Bedrooms',
+    type: 'offer__feature offer__feature--bedrooms'
+  },
+  {
+    title: 'Max 4 adults',
+    type: 'offer__feature offer__feature--adults'
+  }
+];
+export const insideOffer = [
+  {
+    title: 'Wi-Fi',
+  },
+  {
+    title: 'Wi-Fi',
+  },
+  {
+    title: 'Wi-Fi',
+  },
+  {
+    title: 'Wi-Fi',
+  },
+  {
+    title: 'Wi-Fi',
+  },
+  {
+    title: 'Wi-Fi',
+  },
+  {
+    title: 'Wi-Fi',
+  },
+  {
+    title: 'Wi-Fi',
+  },
+  {
+    title: 'Wi-Fi',
+  }
+];
+export const nearPlaces = apartments.splice(1);

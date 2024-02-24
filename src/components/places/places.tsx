@@ -1,11 +1,11 @@
 import PlaceCard from '../place-card/place-card';
-import { Apartments } from '../../mock';
+import { apartments } from '../../mock';
 
 
 function Places(): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {Apartments.map((card) =>(
+      {apartments.map((card) =>(
         <PlaceCard
           key={card.id}
           image={card.previewImage}

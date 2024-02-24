@@ -1,4 +1,4 @@
-import { CITIES } from '../../const';
+import { apartments } from '../../mock';
 import FavoriteCard from '../favorite-card/favorite-card';
 
 function FavoritesList(): JSX.Element {
@@ -8,14 +8,20 @@ function FavoritesList(): JSX.Element {
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
             <a className="locations__item-link" href="#">
-              <span>{CITIES[1]}</span>
+              <span>Paris</span>
             </a>
           </div>
         </div>
         <div className="favorites__places">
-          <FavoriteCard/>
-
-          <FavoriteCard/>
+          {apartments.map((card) =>(
+            <FavoriteCard
+              key={card.id}
+              image={card.previewImage}
+              title={card.title}
+              type={card.type}
+              price={card.price}
+            />
+          ))}
         </div>
       </li>
 
@@ -23,12 +29,20 @@ function FavoritesList(): JSX.Element {
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
             <a className="locations__item-link" href="#">
-              <span>{CITIES[2]}</span>
+              <span>Brussels</span>
             </a>
           </div>
         </div>
         <div className="favorites__places">
-          <FavoriteCard/>
+          {apartments.map((card) =>(
+            <FavoriteCard
+              key={card.id}
+              image={card.previewImage}
+              title={card.title}
+              type={card.type}
+              price={card.price}
+            />
+          ))}
         </div>
       </li>
     </ul>
