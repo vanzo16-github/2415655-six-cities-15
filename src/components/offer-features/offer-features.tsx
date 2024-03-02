@@ -1,4 +1,4 @@
-import { featuresOffer } from '../../mock';
+import { featuresOffer } from '../../mocks/mocks';
 import OfferFeature from '../offer-feature-item/offer-feature-item';
 
 function OfferFeatures(): JSX.Element {

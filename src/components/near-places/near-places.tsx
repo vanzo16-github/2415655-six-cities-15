@@ -1,5 +1,5 @@
 import PlaceCard from '../place-card/place-card';
-import { apartments } from '../../mock';
+import { apartments } from '../../mocks/mocks';
 
 
 function NearPlaces(): JSX.Element {

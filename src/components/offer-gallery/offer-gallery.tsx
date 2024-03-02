@@ -1,4 +1,4 @@
-import { imageOffer } from '../../mock';
+import { imageOffer } from '../../mocks/mocks';
 import OfferPhoto from '../offer-photo/offer-photo';
 
 function OfferGallery(): JSX.Element {

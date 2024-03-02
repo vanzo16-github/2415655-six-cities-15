@@ -1,4 +1,4 @@
-import { apartments } from '../../mock';
+import { apartments } from '../../mocks/mocks';
 import FavoriteCard from '../favorite-card/favorite-card';
 
 function FavoritesList(): JSX.Element {

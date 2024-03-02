@@ -19,7 +19,7 @@ function OfferContainer(): JSX.Element {
         <OfferPrice/>
         <OfferInside/>
         <OfferHost/>
-        <OfferReview/>
+        <OfferReview isAuth/>
       </div>
     </div>
   );

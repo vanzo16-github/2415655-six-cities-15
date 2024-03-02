@@ -1,4 +1,4 @@
-import { insideOffer } from '../../mock';
+import { insideOffer } from '../../mocks/mocks';
 import OfferInsideItem from '../offer-inside-item/offer-inside-item';
 
 function OfferInside(): JSX.Element {

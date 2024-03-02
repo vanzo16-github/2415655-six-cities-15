@@ -5,6 +5,7 @@ export const apartments = [
     type: 'Apartment',
     price: 120,
     isPremium: true,
+    isFavorite: true,
     previewImage: 'img/apartment-01.jpg'
   },
   {
@@ -13,6 +14,7 @@ export const apartments = [
     type: 'Room',
     price: 80,
     isPremium: false,
+    isFavorite: true,
     previewImage: 'img/room.jpg'
   },
   {
@@ -21,6 +23,7 @@ export const apartments = [
     type: 'Apartment',
     price: 132,
     isPremium: false,
+    isFavorite: true,
     previewImage: 'img/apartment-02.jpg'
   }
 ];
