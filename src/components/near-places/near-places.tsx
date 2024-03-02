@@ -1,10 +1,11 @@
 import PlaceCard from '../place-card/place-card';
-import { nearPlaces } from '../../mock';
+import { apartments } from '../../mock';
+
 
 function NearPlaces(): JSX.Element {
   return (
     <div className="near-places__list places__list">
-      {nearPlaces.map((card) =>(
+      {apartments.map((card) =>(
         <PlaceCard
           key={card.id}
           image={card.previewImage}

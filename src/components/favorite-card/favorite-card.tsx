@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
 type FavoriteCardProps = {
   image: string;
   price: number;
@@ -9,7 +12,7 @@ function FavoriteCard({ image, price, title, type }: FavoriteCardProps): JSX.Ele
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={AppRoute.Offer}>
           <img
             className="place-card__image"
             src={image}
@@ -17,7 +20,7 @@ function FavoriteCard({ image, price, title, type }: FavoriteCardProps): JSX.Ele
             height="110"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">

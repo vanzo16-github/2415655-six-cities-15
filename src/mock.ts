@@ -89,4 +89,4 @@ export const insideOffer = [
     title: 'Wi-Fi',
   }
 ];
-export const nearPlaces = apartments.splice(1);
+
