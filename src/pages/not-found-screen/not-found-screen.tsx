@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 
+
 function NotFoundScreen(): JSX.Element {
   return (
     <div className="page page--gray page--login">

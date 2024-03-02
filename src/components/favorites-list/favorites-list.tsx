@@ -13,7 +13,6 @@ function FavoritesList(): JSX.Element {
           </div>
         </div>
         <div className="favorites__places">
-
           {apartments.map((card) =>(
             <FavoriteCard
               key={card.id}

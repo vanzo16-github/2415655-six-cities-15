@@ -89,3 +89,4 @@ export const insideOffer = [
     title: 'Wi-Fi',
   }
 ];
+
