@@ -8,6 +8,7 @@ function Places(): JSX.Element {
       {apartments.map((card) =>(
         <PlaceCard
           key={card.id}
+          id={card.id}
           image={card.previewImage}
           title={card.title}
           type={card.type}

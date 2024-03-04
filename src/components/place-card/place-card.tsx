@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 
 type PlaceCardProps = {
+  id: number;
   image: string;
   price: number;
   title: string;
@@ -9,7 +9,7 @@ type PlaceCardProps = {
   isPremium: boolean;
 }
 
-function PlaceCard({ image, price, title, type, isPremium }: PlaceCardProps): JSX.Element {
+function PlaceCard({ id, image, price, title, type, isPremium }: PlaceCardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
       {isPremium && (
@@ -18,7 +18,7 @@ function PlaceCard({ image, price, title, type, isPremium }: PlaceCardProps): JS
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Offer}>
+        <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
             src={image}
