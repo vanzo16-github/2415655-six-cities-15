@@ -1,4 +1,4 @@
-import { apartments } from '../../mocks/mocks';
+import { cards } from '../../mocks/mocks';
 import FavoriteCard from '../favorite-card/favorite-card';
 
 function FavoritesList(): JSX.Element {
@@ -13,7 +13,7 @@ function FavoritesList(): JSX.Element {
           </div>
         </div>
         <div className="favorites__places">
-          {apartments.map((card) =>(
+          {cards.map((card) =>(
             <FavoriteCard
               key={card.id}
               image={card.previewImage}
@@ -34,7 +34,7 @@ function FavoritesList(): JSX.Element {
           </div>
         </div>
         <div className="favorites__places">
-          {apartments.map((card) =>(
+          {cards.map((card) =>(
             <FavoriteCard
               key={card.id}
               image={card.previewImage}

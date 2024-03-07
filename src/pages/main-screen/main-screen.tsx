@@ -5,12 +5,14 @@ import Locations from '../../components/locations/locations';
 import Places from '../../components/places/places';
 import Sort from '../../components/sort/sort';
 import { Helmet } from 'react-helmet-async';
+import { TCard } from '../../mocks/types';
 
 type MainScreenProps = {
+  cards: TCard[];
   placeCount: number;
 }
 
-function MainScreen({placeCount}: MainScreenProps): JSX.Element {
+function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -28,7 +30,7 @@ function MainScreen({placeCount}: MainScreenProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <CountPlaces placeCount={placeCount}/>
               <Sort/>
-              <Places/>
+              <Places cards={cards}/>
             </section>
             <div className="cities__right-section">
               <Map/>

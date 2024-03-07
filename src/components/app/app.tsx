@@ -7,12 +7,14 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-rout';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen';
+import { TCard } from '../../mocks/types';
 
 type AppScreenProps = {
   placeCount: number;
+  cards: TCard[];
 }
 
-function App({placeCount}: AppScreenProps): JSX.Element {
+function App({placeCount, cards}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -23,7 +25,7 @@ function App({placeCount}: AppScreenProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <MainScreen placeCount={placeCount}/>
+                <MainScreen placeCount={placeCount} cards={cards}/>
               </PrivateRoute>
             }
           />
@@ -43,7 +45,7 @@ function App({placeCount}: AppScreenProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <OfferScreen/>
+                <OfferScreen cards={cards}/>
               </PrivateRoute>
             }
           />

@@ -1,17 +1,25 @@
 import { Link } from 'react-router-dom';
+import { TCard } from '../../mocks/types';
 
-type PlaceCardProps = {
-  id: number;
-  image: string;
-  price: number;
-  title: string;
-  type: string;
-  isPremium: boolean;
+export type PlaceCardProps = {
+  card: TCard;
+  handleHover: (card?:TCard)=>void;
 }
 
-function PlaceCard({ id, image, price, title, type, isPremium }: PlaceCardProps): JSX.Element {
+function PlaceCard({ card, handleHover }: PlaceCardProps): JSX.Element {
+  const {id, title, type, price, isPremium, isFavorite, previewImage} = card;
+
+
+  const handleMouseOn = () => {
+    handleHover(card);
+  };
+
+  const handleMouseOff = () => {
+    handleHover();
+  };
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseEnter={handleMouseOn} onMouseLeave={handleMouseOff}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -21,7 +29,7 @@ function PlaceCard({ id, image, price, title, type, isPremium }: PlaceCardProps)
         <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
-            src={image}
+            src={previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -34,12 +42,22 @@ function PlaceCard({ id, image, price, title, type, isPremium }: PlaceCardProps)
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {isFavorite && (
+            <button className="place-card__bookmark-button--active button" type="button">
+              <svg className="place-card__bookmark-icon" width="18" height="19">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          )}
+          {!isFavorite && (
+            <button className="place-card__bookmark-button button" type="button">
+              <svg className="place-card__bookmark-icon" width="18" height="19">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          )}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
