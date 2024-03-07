@@ -1,50 +1,36 @@
-import { cards } from '../../mocks/mocks';
+import { TCard } from '../../mocks/types';
 import FavoriteCard from '../favorite-card/favorite-card';
 
-function FavoritesList(): JSX.Element {
+type CityGroupType = {
+  [key: string]: TCard[];
+}
+
+function groupOffersByCity(items: TCard[]): CityGroupType {
+
+  const groupedItems = items.reduce((accumulator: CityGroupType, item) => {
+    const cityName = item.city.name;
+
+    if (!accumulator[cityName]) {
+      accumulator[cityName] = [];
+    }
+
+    accumulator[cityName].push(item);
+
+    return accumulator;
+  }, {});
+
+  return groupedItems;
+}
+
+type FavoritesListProps = {
+  cards: TCard[];
+}
+
+function FavoritesList({cards}: FavoritesListProps): JSX.Element {
+  const offersGroupedByCity = groupOffersByCity(cards);
   return (
     <ul className="favorites__list">
-      <li className="favorites__locations-items">
-        <div className="favorites__locations locations locations--current">
-          <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>Paris</span>
-            </a>
-          </div>
-        </div>
-        <div className="favorites__places">
-          {cards.map((card) =>(
-            <FavoriteCard
-              key={card.id}
-              image={card.previewImage}
-              title={card.title}
-              type={card.type}
-              price={card.price}
-            />
-          ))}
-        </div>
-      </li>
-
-      <li className="favorites__locations-items">
-        <div className="favorites__locations locations locations--current">
-          <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>Brussels</span>
-            </a>
-          </div>
-        </div>
-        <div className="favorites__places">
-          {cards.map((card) =>(
-            <FavoriteCard
-              key={card.id}
-              image={card.previewImage}
-              title={card.title}
-              type={card.type}
-              price={card.price}
-            />
-          ))}
-        </div>
-      </li>
+      {Object.keys(offersGroupedByCity).map((city) => <FavoriteCard key={city} city={city} cards={offersGroupedByCity[city]}/>)}
     </ul>
   );
 }

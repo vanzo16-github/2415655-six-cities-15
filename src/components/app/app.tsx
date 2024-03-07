@@ -55,7 +55,7 @@ function App({placeCount, cards}: AppScreenProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavoritesScreen/>
+                <FavoritesScreen cards={cards}/>
               </PrivateRoute>
             }
           />

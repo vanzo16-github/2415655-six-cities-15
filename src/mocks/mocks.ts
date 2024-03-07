@@ -45,7 +45,7 @@ export const cards: TCard[] = [
     previewImage: 'img/apartment-02.jpg',
     price: 140,
     city: {
-      name: 'Amsterdam',
+      name: 'Tokio',
       location: {
         latitude: 52.35514938496378,
         longitude: 4.673877537499948,
