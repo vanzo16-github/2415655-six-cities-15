@@ -1,15 +1,18 @@
-import { insideOffer } from '../../mocks/mocks';
 import OfferInsideItem from '../offer-inside-item/offer-inside-item';
 
-function OfferInside(): JSX.Element {
+type OfferInsideProps = {
+  features: string[];
+}
+
+function OfferInside({ features }: OfferInsideProps): JSX.Element {
   return (
     <div className="offer__inside">
       <h2 className="offer__inside-title">What&apos;s inside</h2>
       <ul className="offer__inside-list">
-        {insideOffer.map((inside) =>(
+        {features.map((inside) =>(
           <OfferInsideItem
-            key={inside.title}
-            title={inside.title}
+            key={inside}
+            title={inside}
           />
         ))}
       </ul>

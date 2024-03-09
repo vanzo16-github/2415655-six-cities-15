@@ -6,18 +6,25 @@ import OfferRating from '../offer-rating/offer-rating';
 import OfferReview from '../offer-review/offer-review';
 import OfferTitle from '../offer-title/offer-title';
 
-function OfferContainer(): JSX.Element {
+type OfferContainerProps = {
+  title: string;
+  isPremium: boolean;
+  maxAdults: number;
+  type: string;
+  bedrooms: number;
+  features: string[];
+}
+
+function OfferContainer({title, isPremium, maxAdults, type, bedrooms, features}: OfferContainerProps): JSX.Element {
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
-        <div className="offer__mark">
-          <span>Premium</span>
-        </div>
-        <OfferTitle/>
+        {isPremium && <div className="offer__mark"><span>Premium</span></div>}
+        <OfferTitle title={title}/>
         <OfferRating/>
-        <OfferFeatures/>
+        <OfferFeatures maxAdults={maxAdults} type={type} bedrooms={bedrooms}/>
         <OfferPrice/>
-        <OfferInside/>
+        <OfferInside features={features}/>
         <OfferHost/>
         <OfferReview isAuth/>
       </div>
