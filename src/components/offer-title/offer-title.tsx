@@ -1,6 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-function OfferTitle(): JSX.Element {
+type OfferTitleProps = {
+  title: string;
+}
+
+function OfferTitle({title}: OfferTitleProps): JSX.Element {
   return (
     <div className="offer__name-wrapper">
       <Helmet>
@@ -9,7 +13,7 @@ function OfferTitle(): JSX.Element {
         </title>
       </Helmet>
       <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
+        {title}
       </h1>
       <button className="offer__bookmark-button button" type="button">
         <svg className="offer__bookmark-icon" width="31" height="33">
