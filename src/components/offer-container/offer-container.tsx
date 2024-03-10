@@ -1,3 +1,4 @@
+import { TReview } from '../../mocks/types';
 import OfferFeatures from '../offer-features/offer-features';
 import OfferHost from '../offer-host/offer-host';
 import OfferInside from '../offer-insides/offer-insides';
@@ -13,9 +14,11 @@ type OfferContainerProps = {
   type: string;
   bedrooms: number;
   features: string[];
+  price: number;
+  reviews: TReview[];
 }
 
-function OfferContainer({title, isPremium, maxAdults, type, bedrooms, features}: OfferContainerProps): JSX.Element {
+function OfferContainer({title, isPremium, maxAdults, type, bedrooms, features, price, reviews}: OfferContainerProps): JSX.Element {
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
@@ -23,10 +26,10 @@ function OfferContainer({title, isPremium, maxAdults, type, bedrooms, features}:
         <OfferTitle title={title}/>
         <OfferRating/>
         <OfferFeatures maxAdults={maxAdults} type={type} bedrooms={bedrooms}/>
-        <OfferPrice/>
+        <OfferPrice price={price}/>
         <OfferInside features={features}/>
         <OfferHost/>
-        <OfferReview isAuth/>
+        <OfferReview isAuth reviews={reviews}/>
       </div>
     </div>
   );

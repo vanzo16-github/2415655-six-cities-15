@@ -22,7 +22,7 @@ export const cards: TCard[] = [
     },
     isFavorite: false,
     isPremium: false,
-    rating: 4,
+    rating: 1,
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     goods: [
@@ -36,7 +36,31 @@ export const cards: TCard[] = [
     images: [
       'img/apartment-01.jpg', 'img/apartment-01.jpg', 'img/apartment-01.jpg'
     ],
-    maxAdults: 4
+    maxAdults: 4,
+    comments: [
+      {
+        id: 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a',
+        date: '2019-05-08T14:13:56.569Z',
+        user: {
+          name: 'Oliver Conner',
+          avatarUrl: 'https://url-to-image/image.png',
+          isPro: false
+        },
+        comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+        rating: 2
+      },
+      {
+        id: 'b67ddfd5-b953-4a30-8c8d-bd083cd6b6',
+        date: '2019-05-08T14:13:56.569Z',
+        user: {
+          name: 'Oliver Conner',
+          avatarUrl: 'https://url-to-image/image.png',
+          isPro: false
+        },
+        comment: 'Comment 1',
+        rating: 2
+      },
+    ]
   },
   {
     id: '2',
@@ -73,7 +97,8 @@ export const cards: TCard[] = [
     images: [
       'img/apartment-01.jpg', 'img/apartment-01.jpg', 'img/apartment-01.jpg'
     ],
-    maxAdults: 4
+    maxAdults: 4,
+    comments: [],
   },
   {
     id: '3',
@@ -96,7 +121,7 @@ export const cards: TCard[] = [
     },
     isFavorite: true,
     isPremium: true,
-    rating: 4,
+    rating: 2,
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
     goods: [
@@ -110,6 +135,19 @@ export const cards: TCard[] = [
     images: [
       'img/apartment-01.jpg', 'img/apartment-01.jpg', 'img/apartment-01.jpg'
     ],
-    maxAdults: 4
+    maxAdults: 4,
+    comments: [
+      {
+        id: 'b67ddfd5-b953-4a30-8c8d-bd083cd6b62a',
+        date: '2019-05-08T14:13:56.569Z',
+        user: {
+          name: 'Oliver Conner',
+          avatarUrl: 'https://url-to-image/image.png',
+          isPro: false
+        },
+        comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+        rating: 2
+      },
+    ]
   },
 ];

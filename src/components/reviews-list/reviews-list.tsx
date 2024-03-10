@@ -1,9 +1,14 @@
+import { TReview } from '../../mocks/types';
 import ReviewsItem from '../reviews-item/reviews-item';
 
-function ReviewsList(): JSX.Element {
+export type ReviewsListProps = {
+  reviews: TReview[];
+}
+
+function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
   return (
     <ul className="reviews__list">
-      <ReviewsItem/>
+      {reviews.map((review) => <ReviewsItem review={review} key={review.id}/>)}
     </ul>
   );
 }

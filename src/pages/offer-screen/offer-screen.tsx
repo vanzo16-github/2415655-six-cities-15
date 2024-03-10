@@ -19,7 +19,7 @@ function OfferScreen({cards}: OfferScreenProps): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  const {images, title, isPremium, maxAdults, type, bedrooms, goods} = offerParams;
+  const {images, title, isPremium, maxAdults, type, bedrooms, goods, price, comments} = offerParams;
 
   return (
     <div className="page">
@@ -28,7 +28,7 @@ function OfferScreen({cards}: OfferScreenProps): JSX.Element {
       <main className="page__main page__main--offer">
         <section className="offer">
           <OfferGallery images={images}/>
-          <OfferContainer title={title} isPremium={isPremium} maxAdults={maxAdults} type={type} bedrooms={bedrooms} features={goods}/>
+          <OfferContainer title={title} isPremium={isPremium} maxAdults={maxAdults} type={type} bedrooms={bedrooms} features={goods} price={price} reviews={comments}/>
           <OfferMap/>
 
         </section>
