@@ -33,7 +33,7 @@ function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
               <Places cards={cards}/>
             </section>
             <div className="cities__right-section">
-              <Map/>
+              <Map cards={cards}/>
             </div>
           </div>
         </div>
