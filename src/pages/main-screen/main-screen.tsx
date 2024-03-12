@@ -6,6 +6,7 @@ import Places from '../../components/places/places';
 import Sort from '../../components/sort/sort';
 import { Helmet } from 'react-helmet-async';
 import { TCard } from '../../mocks/types';
+import { useState } from 'react';
 
 type MainScreenProps = {
   cards: TCard[];
@@ -13,6 +14,11 @@ type MainScreenProps = {
 }
 
 function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
+  const [selectedCard, setSelectedCard] = useState<TCard | null>();
+
+  const handleSelectActiveCard = (card?: TCard) => {
+    setSelectedCard(card);
+  };
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -30,10 +36,10 @@ function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <CountPlaces placeCount={placeCount}/>
               <Sort/>
-              <Places cards={cards}/>
+              <Places cards={cards} handleHover={handleSelectActiveCard}/>
             </section>
             <div className="cities__right-section">
-              <Map cards={cards}/>
+              <Map cards={cards} selectedCard={selectedCard}/>
             </div>
           </div>
         </div>
