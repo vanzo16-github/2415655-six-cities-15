@@ -39,7 +39,7 @@ function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
               <Places cards={cards} handleHover={handleSelectActiveCard}/>
             </section>
             <div className="cities__right-section">
-              <Map cards={cards} selectedCard={selectedCard}/>
+              <Map cards={cards} selectedCard={selectedCard} classMap='cities__map'/>
             </div>
           </div>
         </div>

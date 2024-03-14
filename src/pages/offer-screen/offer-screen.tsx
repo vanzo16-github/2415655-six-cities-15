@@ -2,10 +2,10 @@ import Header from '../../components/header/header';
 import OfferContainer from '../../components/offer-container/offer-container';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import NearPlaces from '../../components/near-places/near-places';
-import OfferMap from '../../components/offer-map/offer-map';
 import { TCard } from '../../mocks/types';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Map from '../../components/map/map';
 
 type OfferScreenProps = {
   cards: TCard[];
@@ -29,7 +29,7 @@ function OfferScreen({cards}: OfferScreenProps): JSX.Element {
         <section className="offer">
           <OfferGallery images={images}/>
           <OfferContainer title={title} isPremium={isPremium} maxAdults={maxAdults} type={type} bedrooms={bedrooms} features={goods} price={price} reviews={comments}/>
-          <OfferMap/>
+          <Map cards={cards} classMap='offer__map'/>
 
         </section>
         <div className="container">

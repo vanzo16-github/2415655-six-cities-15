@@ -8,9 +8,10 @@ import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 type MapProps = {
   cards: TCard[];
   selectedCard ?: TCard | null;
+  classMap: string;
 };
 
-function Map({cards, selectedCard }: MapProps): JSX.Element {
+function Map({cards, selectedCard, classMap }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef);
 
@@ -42,7 +43,7 @@ function Map({cards, selectedCard }: MapProps): JSX.Element {
   }, [map, cards, selectedCard, defaultCustomIcon, currentCustomIcon]);
 
 
-  return <section className="cities__map map" ref={mapRef}/>;
+  return <section className={`map ${classMap}`} ref={mapRef}/>;
 }
 
 export default Map;
