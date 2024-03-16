@@ -26,11 +26,7 @@ export type TCard = {
         zoom: number;
       };
     };
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
+    location: TCity;
     isFavorite: boolean;
     isPremium: boolean;
     rating: number;
@@ -46,3 +42,9 @@ export type TCard = {
     maxAdults: number;
     comments: TReview[];
   }
+
+export type TCity = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}

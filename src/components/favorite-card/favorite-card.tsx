@@ -19,7 +19,9 @@ function FavoriteCard({ city, cards }: FavoriteCardProps): JSX.Element {
         </div>
       </div>
       <Places
-        cards={cards}
+        cards={cards} handleHover={function (): void {
+          throw new Error('Function not implemented.');
+        } }
       />
     </li>
   );
