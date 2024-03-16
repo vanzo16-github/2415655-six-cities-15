@@ -1,4 +1,6 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+import {store} from './store';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
 import {Setting} from './const';
@@ -10,8 +12,10 @@ const root = ReactDOM.createRoot(
 
 
 root.render(
-  <React.StrictMode>
-    <App placeCount={Setting.placeCount} cards={cards}/>
-  </React.StrictMode>
+  <Provider store = {store}>
+    <React.StrictMode>
+      <App placeCount={Setting.placeCount} cards={cards}/>
+    </React.StrictMode>
+  </Provider>
 );
 
