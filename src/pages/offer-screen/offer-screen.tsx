@@ -31,7 +31,7 @@ function OfferScreen({cards}: OfferScreenProps): JSX.Element {
         <section className="offer">
           <OfferGallery images={images}/>
           <OfferContainer title={title} isPremium={isPremium} maxAdults={maxAdults} type={type} bedrooms={bedrooms} features={goods} price={price} reviews={comments}/>
-          <Map cards={nearOffersThree} classMap='offer__map'/>
+          <Map cards={[offerParams, ...nearOffersThree]} selectedCard={offerParams} classMap='offer__map'/>
 
         </section>
         <div className="container">

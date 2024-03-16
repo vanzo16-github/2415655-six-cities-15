@@ -152,7 +152,7 @@ export const cards: TCard[] = [
   },
   {
     id: '4',
-    title: 'Offer-3',
+    title: 'Offer-4',
     type: 'apartment',
     previewImage: 'img/apartment-01.jpg',
     price: 100,
