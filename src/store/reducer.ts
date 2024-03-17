@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {choiceCity} from './action';
+import {choiceCity, resetApp} from './action';
 import { TCard } from '../mocks/types';
 import { cards } from '../mocks/mocks';
 
@@ -16,8 +16,12 @@ const initialState: initialStateType = {
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(choiceCity, (state) => {
+      state.city = '';
+    })
+    .addCase(resetApp, (state) => {
       state.cards = cards;
     });
+
 });
 
 export {reducer};
