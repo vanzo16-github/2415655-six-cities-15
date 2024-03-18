@@ -3,8 +3,6 @@ import {Provider} from 'react-redux';
 import {store} from './store';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
-import {Setting} from './const';
-import { cards } from './mocks/mocks.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store = {store}>
     <React.StrictMode>
-      <App placeCount={Setting.placeCount} cards={cards}/>
+      <App/>
     </React.StrictMode>
   </Provider>
 );

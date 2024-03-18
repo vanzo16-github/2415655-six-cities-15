@@ -1,24 +1,30 @@
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import CountPlaces from '../../components/count-places/count-places';
-import Locations from '../../components/locations/locations';
+//import Locations from '../../components/locations/locations';
 import Places from '../../components/places/places';
 import Sort from '../../components/sort/sort';
 import { Helmet } from 'react-helmet-async';
 import { TCard } from '../../mocks/types';
 import { useState } from 'react';
+import { CITIES } from '../../const';
+import City from '../../components/city/city';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { choiceCity } from '../../store/reducer';
 
-type MainScreenProps = {
-  cards: TCard[];
-  placeCount: number;
-}
-
-function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
+function MainScreen(): JSX.Element {
   const [selectedCard, setSelectedCard] = useState<TCard | null>();
 
   const handleSelectActiveCard = (card?: TCard) => {
     setSelectedCard(card);
   };
+
+  const offers = useAppSelector((state) => state.cards);
+  const currentCity = useAppSelector((state) => state.city);
+
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
+
+  const dispatch = useAppDispatch();
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -28,18 +34,27 @@ function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
         </Helmet>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations/>
+          <section className="locations container">
+            <ul className="locations__list tabs__list">
+              {CITIES.map((city) => (<City city={city.name} key={city.name} onClick={(evt) => {
+                evt.preventDefault();
+                dispatch(choiceCity(city.name));
+              }}
+              // eslint-disable-next-line react/jsx-closing-bracket-location
+              />))}
+            </ul>
+          </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <CountPlaces placeCount={placeCount}/>
+              <CountPlaces placeCount={0}/>
               <Sort/>
-              <Places cards={cards} handleHover={handleSelectActiveCard}/>
+              <Places cards={currentOffers} handleHover={handleSelectActiveCard}/>
             </section>
             <div className="cities__right-section">
-              <Map cards={cards} selectedCard={selectedCard} classMap='cities__map'/>
+              <Map cards={currentOffers} selectedCard={selectedCard} classMap='cities__map'/>
             </div>
           </div>
         </div>

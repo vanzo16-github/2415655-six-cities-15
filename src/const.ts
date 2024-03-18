@@ -1,4 +1,24 @@
-export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
+export const CITIES = [{
+  name: 'Paris'
+},
+{
+  name: 'Cologne'
+},
+{
+  name: 'Brussels'
+},
+{
+  name: 'Amsterdam'
+},
+{
+  name: 'Hamburg'
+},
+{
+  name: 'Dusseldorf'
+}
+] as const;
+
+export type CityName = (typeof CITIES)[number]['name'];
 
 export const Setting = {
   placeCount: 312

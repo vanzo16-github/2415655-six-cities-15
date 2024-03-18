@@ -1,4 +1,10 @@
-import {createAction} from '@reduxjs/toolkit';
+import { CityName } from '../const';
 
-export const choiceCity = createAction('app/choiceCity');
-export const resetApp = createAction('app/reset');
+export const enum ActionType {
+  ChoiceCity = 'offers/choiceCity'
+}
+
+export const choiceCity = (city: CityName) => ({
+  payload: city,
+  type: ActionType.ChoiceCity
+});

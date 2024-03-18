@@ -1,14 +1,14 @@
-import City from '../city/city';
-import { CITIES } from '../../const';
+// import City from '../city/city';
+// import { CITIES } from '../../const';
 
-function Locations(): JSX.Element {
-  return (
-    <section className="locations container">
-      <ul className="locations__list tabs__list">
-        {CITIES.map((city) => <City city={city} key={city}/>)}
-      </ul>
-    </section>
-  );
-}
+// function Locations(): JSX.Element {
+//   return (
+//     <section className="locations container">
+//       <ul className="locations__list tabs__list">
+//         {CITIES.map((city) => <City city={city.name} key={city}/>)}
+//       </ul>
+//     </section>
+//   );
+// }
 
-export default Locations;
+// export default Locations;
