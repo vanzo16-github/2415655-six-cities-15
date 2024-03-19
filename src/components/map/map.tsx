@@ -1,5 +1,5 @@
 import {useRef, useEffect} from 'react';
-import leaflet from 'leaflet';
+import leaflet, { LayerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import { TCard } from '../../mocks/types';
@@ -9,11 +9,13 @@ type MapProps = {
   cards: TCard[];
   selectedCard ?: TCard | null;
   classMap: string;
+  city?: TCard | null;
 };
 
-function Map({cards, selectedCard, classMap }: MapProps): JSX.Element {
+function Map({cards, selectedCard, classMap, city }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef);
+  const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -29,6 +31,9 @@ function Map({cards, selectedCard, classMap }: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+      markerLayer.current.addTo(map);
+      markerLayer.current.clearLayers();
       cards.forEach((card) => {
         leaflet
           .marker({
@@ -37,10 +42,10 @@ function Map({cards, selectedCard, classMap }: MapProps): JSX.Element {
           },{
             icon: selectedCard && selectedCard.id === card.id ? currentCustomIcon : defaultCustomIcon
           })
-          .addTo(map);
+          .addTo(markerLayer.current);
       });
     }
-  }, [map, cards, selectedCard, defaultCustomIcon, currentCustomIcon]);
+  }, [map, cards, selectedCard, defaultCustomIcon, currentCustomIcon, city]);
 
 
   return <section className={`map ${classMap}`} ref={mapRef}/>;

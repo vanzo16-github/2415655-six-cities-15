@@ -217,7 +217,7 @@ export const cards: TCard[] = [
     location: {
       latitude: 53.574341000000004,
       longitude: 10.022654000000001,
-      zoom: 16
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
@@ -267,7 +267,7 @@ export const cards: TCard[] = [
     location: {
       latitude: 48.868610000000004,
       longitude: 2.342499,
-      zoom: 16
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
@@ -317,7 +317,7 @@ export const cards: TCard[] = [
     location: {
       latitude: 50.945361,
       longitude: 6.935974,
-      zoom: 16
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
@@ -367,7 +367,7 @@ export const cards: TCard[] = [
     location: {
       latitude: 50.833557,
       longitude: 4.374696999999999,
-      zoom: 16
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
@@ -417,7 +417,7 @@ export const cards: TCard[] = [
     location: {
       latitude: 51.211402,
       longitude: 6.756314000000001,
-      zoom: 16
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
@@ -467,7 +467,7 @@ export const cards: TCard[] = [
     location: {
       latitude: 53.574341000000004,
       longitude: 10.022654000000001,
-      zoom: 16
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,

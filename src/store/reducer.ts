@@ -1,7 +1,8 @@
 import { TCard } from '../mocks/types';
 import { cards } from '../mocks/mocks';
 import { CITIES, CityName } from '../const';
-import { ActionType, choiceCity } from './action';
+import { createReducer } from '@reduxjs/toolkit';
+import { choiceCity } from './action';
 
 type initialStateType = {
   city: CityName;
@@ -13,17 +14,10 @@ const initialState: initialStateType = {
   cards,
 };
 
-function reducer(state: initialStateType = initialState, action: {payload: unknown; type: ActionType}) :
-initialStateType {
-  switch (action.type) {
-    case ActionType.ChoiceCity:
-      return {
-        ...state,
-        city: action.payload as CityName,
-      };
-    default:
-      return state;
-  }
-}
+const reducer = createReducer(initialState, (builder)=> {
+  builder.addCase(choiceCity, (state, action) => {
+    state.city = action.payload;
+  });
+});
 
 export {reducer, choiceCity};

@@ -26,7 +26,7 @@ export type TCard = {
         zoom: number;
       };
     };
-    location: TCity;
+    location: TLocation;
     isFavorite: boolean;
     isPremium: boolean;
     rating: number;
@@ -43,8 +43,14 @@ export type TCard = {
     comments: TReview[];
   }
 
+export type TLocation = {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  }
+
 export type TCity = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
+    name: string;
+    location: TLocation;
+  }
+
