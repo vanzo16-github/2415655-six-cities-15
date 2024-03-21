@@ -18,14 +18,7 @@ export type TCard = {
     type: string;
     price: number;
     previewImage: string;
-    city: {
-      name: string;
-      location: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-      };
-    };
+    city: TCity;
     location: TLocation;
     isFavorite: boolean;
     isPremium: boolean;

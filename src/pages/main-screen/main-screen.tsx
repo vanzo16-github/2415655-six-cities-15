@@ -7,10 +7,17 @@ import Sort from '../../components/sort/sort';
 import { Helmet } from 'react-helmet-async';
 import { TCard } from '../../mocks/types';
 import { useState } from 'react';
-import { CITIES } from '../../const';
+import { CITIES, SortOptions } from '../../const';
 import City from '../../components/city/city';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { choiceCity } from '../../store/reducer';
+
+const sortedCard = {
+  [SortOptions.Popular]: (cards: TCard[]) => cards,
+  [SortOptions.Low]: (cards: TCard[]) => cards.sort((firstCard, secondCard) => firstCard.price - secondCard.price),
+  [SortOptions.High]: (cards: TCard[]) => cards.sort((firstCard, secondCard) => secondCard.price - firstCard.price),
+  [SortOptions.Top]: (cards: TCard[]) => cards.sort((firstCard, secondCard) => secondCard.rating - firstCard.rating),
+};
 
 function MainScreen(): JSX.Element {
   const [selectedCard, setSelectedCard] = useState<TCard | null>();
@@ -18,6 +25,7 @@ function MainScreen(): JSX.Element {
   const handleSelectActiveCard = (card?: TCard) => {
     setSelectedCard(card);
   };
+  const activeSort = useAppSelector((state) => state.sortOption);
 
   const offers = useAppSelector((state) => state.cards);
   const currentCity = useAppSelector((state) => state.city);
@@ -55,7 +63,7 @@ function MainScreen(): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{currentOffers.length} places to stay in {currentCity}</b>
               <Sort/>
-              <Places cards={currentOffers} handleHover={handleSelectActiveCard}/>
+              <Places cards={sortedCard[activeSort]([...currentOffers])} handleHover={handleSelectActiveCard}/>
             </section>
             <div className="cities__right-section">
               <Map cards={currentOffers} selectedCard={selectedCard} classMap='cities__map' city={currentCityLocation}/>

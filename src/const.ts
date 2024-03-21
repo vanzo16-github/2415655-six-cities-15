@@ -79,3 +79,14 @@ export const CITY_DEFAULT = {
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 
 export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+
+type ValueOf<T> = T[keyof T];
+export type TSortOptions = ValueOf<typeof SortOptions>;
+
+
+export const SortOptions = {
+  Popular: 'Popular',
+  Low: 'Price: low to high',
+  High: 'Price: high to low',
+  Top: 'Top rated first',
+};

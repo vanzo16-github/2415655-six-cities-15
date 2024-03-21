@@ -13,7 +13,9 @@ function OfferScreen(): JSX.Element {
   const { id } = useParams();
 
   const offers = useAppSelector((state) => state.cards);
-  // const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector((state) => state.city);
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
+  const currentCityLocation = currentOffers.find((item) => item.city.name === currentCity);
 
   const offerParams = offers.find((item) => item.id === id);
   const nearOffers = offers.filter((item) => item.id !== id);
@@ -32,7 +34,7 @@ function OfferScreen(): JSX.Element {
         <section className="offer">
           <OfferGallery images={images}/>
           <OfferContainer title={title} isPremium={isPremium} maxAdults={maxAdults} type={type} bedrooms={bedrooms} features={goods} price={price} reviews={comments}/>
-          <Map cards={[offerParams, ...nearOffersThree]} selectedCard={offerParams} classMap='offer__map'/>
+          <Map cards={[offerParams, ...nearOffersThree]} selectedCard={offerParams} city={currentCityLocation} classMap='offer__map'/>
 
         </section>
         <div className="container">
