@@ -61,7 +61,7 @@ function MainScreen(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} places to stay in {currentCity}</b>
+              <b className="places__found">{currentOffers.length} place{currentOffers.length > 1 && 's'} to stay in {currentCity}</b>
               <Sort/>
               <Places cards={sortedCard[activeSort]([...currentOffers])} handleHover={handleSelectActiveCard}/>
             </section>
