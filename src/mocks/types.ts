@@ -1,3 +1,4 @@
+
 export type TUser = {
   name: string;
   avatarUrl: string;
@@ -13,20 +14,13 @@ export type TReview = {
 }
 
 export type TCard = {
-  id: string;
+    id: string;
     title: string;
     type: string;
     price: number;
     previewImage: string;
-    city: {
-      name: string;
-      location: {
-        latitude: number;
-        longitude: number;
-        zoom: number;
-      };
-    };
-    location: TCity;
+    city: TCity;
+    location: TLocation;
     isFavorite: boolean;
     isPremium: boolean;
     rating: number;
@@ -43,8 +37,15 @@ export type TCard = {
     comments: TReview[];
   }
 
+export type TLocation = {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  }
+
 export type TCity = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
+    name: string;
+    location: TLocation;
+  }
+
+export type TOpenCard = Omit<TCard, 'images' | 'description' | 'bedrooms' | 'goods' | 'maxAdults' | 'comments' | 'host'>

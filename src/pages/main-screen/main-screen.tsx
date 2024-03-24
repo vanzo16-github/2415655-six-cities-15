@@ -1,24 +1,36 @@
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
-import CountPlaces from '../../components/count-places/count-places';
-import Locations from '../../components/locations/locations';
 import Places from '../../components/places/places';
 import Sort from '../../components/sort/sort';
 import { Helmet } from 'react-helmet-async';
-import { TCard } from '../../mocks/types';
+import { TOpenCard } from '../../mocks/types';
 import { useState } from 'react';
+import { CITIES, SortOptions } from '../../const';
+import City from '../../components/city/city';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { chooseCity } from '../../store/reducer';
 
-type MainScreenProps = {
-  cards: TCard[];
-  placeCount: number;
-}
+const sortedCard = {
+  [SortOptions.Popular]: (cards: TOpenCard[]) => cards,
+  [SortOptions.Low]: (cards: TOpenCard[]) => cards.sort((firstCard, secondCard) => firstCard.price - secondCard.price),
+  [SortOptions.High]: (cards: TOpenCard[]) => cards.sort((firstCard, secondCard) => secondCard.price - firstCard.price),
+  [SortOptions.Top]: (cards: TOpenCard[]) => cards.sort((firstCard, secondCard) => secondCard.rating - firstCard.rating),
+};
 
-function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
-  const [selectedCard, setSelectedCard] = useState<TCard | null>();
+function MainScreen(): JSX.Element {
+  const [selectedCard, setSelectedCard] = useState<TOpenCard | null>();
 
-  const handleSelectActiveCard = (card?: TCard) => {
+  const handleSelectActiveCard = (card?: TOpenCard) => {
     setSelectedCard(card);
   };
+  const activeSort = useAppSelector((state) => state.sortOption);
+
+  const offers = useAppSelector((state) => state.cards);
+  const currentCity = useAppSelector((state) => state.city);
+
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const dispatch = useAppDispatch();
+
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -28,18 +40,27 @@ function MainScreen({ cards, placeCount }: MainScreenProps): JSX.Element {
         </Helmet>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations/>
+          <section className="locations container">
+            <ul className="locations__list tabs__list">
+              {CITIES.map((city) => (<City city={city} selectedCity={currentCity} key={city.name} onClick={(evt) => {
+                evt.preventDefault();
+                dispatch(chooseCity(city));
+              }}
+              // eslint-disable-next-line react/jsx-closing-bracket-location
+              />))}
+            </ul>
+          </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <CountPlaces placeCount={placeCount}/>
+              <b className="places__found">{currentOffers.length} place{currentOffers.length > 1 && 's'} to stay in {currentCity.name}</b>
               <Sort/>
-              <Places cards={cards} handleHover={handleSelectActiveCard}/>
+              <Places cards={sortedCard[activeSort]([...currentOffers])} handleHover={handleSelectActiveCard}/>
             </section>
             <div className="cities__right-section">
-              <Map cards={cards} selectedCard={selectedCard} classMap='cities__map'/>
+              <Map cards={currentOffers} selectedCard={selectedCard} classMap='cities__map' city={currentCity}/>
             </div>
           </div>
         </div>

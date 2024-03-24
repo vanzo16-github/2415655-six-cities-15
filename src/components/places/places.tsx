@@ -1,33 +1,12 @@
 import PlaceCard from '../place-card/place-card';
-import { TCard } from '../../mocks/types';
-// import { useEffect, useState } from 'react';
-// import { Nullable } from 'vitest';
+import { TOpenCard } from '../../mocks/types';
 
 export type PlacesProps = {
-  cards: TCard[];
-  handleHover: (card?:TCard)=>void;
+  cards: TOpenCard[];
+  handleHover: (card?:TOpenCard)=>void;
 }
 
 function Places({cards, handleHover}: PlacesProps): JSX.Element {
-  // const [activeOffer, setActiveOffer] = useState<Nullable<TCard>>(null);
-  // const handleHover = (offer?: TCard) => {
-  //   setActiveOffer(offer || null);
-  // };
-
-  // useEffect(() => {
-  //   // eslint-disable-next-line no-console
-  //   console.log('component did update');
-  // }, [cards]);
-
-  // useEffect(() => {
-  //   // eslint-disable-next-line no-console
-  //   console.warn(activeOffer);
-
-  //   return () => {
-  //     // eslint-disable-next-line no-console
-  //     console.log('component will unmount');
-  //   };
-  // }, []);
   return (
     <div className="cities__places-list places__list tabs__content">
       {cards.map((card) =>(

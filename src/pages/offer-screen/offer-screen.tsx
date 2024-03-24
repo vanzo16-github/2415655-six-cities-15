@@ -1,21 +1,23 @@
 import Header from '../../components/header/header';
 import OfferContainer from '../../components/offer-container/offer-container';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
-//import NearPlaces from '../../components/near-places/near-places';
-import { TCard } from '../../mocks/types';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';
 import PlaceCard from '../../components/place-card/place-card';
+import { useAppSelector } from '../../hooks';
 
-type OfferScreenProps = {
-  cards: TCard[];
-}
 
-function OfferScreen({cards}: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
   const { id } = useParams();
-  const offerParams = cards.find((item) => item.id === id);
-  const nearOffers = cards.filter((item) => item.id !== id);
+
+  const offers = useAppSelector((state) => state.cards);
+  const currentCity = useAppSelector((state) => state.city);
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
+  const currentCityLocation = currentOffers.find((item) => item.city.name === currentCity);
+
+  const offerParams = offers.find((item) => item.id === id);
+  const nearOffers = offers.filter((item) => item.id !== id);
   const nearOffersThree = nearOffers.slice(0, 3);
 
   if (typeof offerParams === 'undefined') {
@@ -31,7 +33,7 @@ function OfferScreen({cards}: OfferScreenProps): JSX.Element {
         <section className="offer">
           <OfferGallery images={images}/>
           <OfferContainer title={title} isPremium={isPremium} maxAdults={maxAdults} type={type} bedrooms={bedrooms} features={goods} price={price} reviews={comments}/>
-          <Map cards={[offerParams, ...nearOffersThree]} selectedCard={offerParams} classMap='offer__map'/>
+          <Map cards={[offerParams, ...nearOffersThree]} selectedCard={offerParams} city={currentCityLocation} classMap='offer__map'/>
 
         </section>
         <div className="container">

@@ -7,14 +7,21 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-rout';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen';
-import { TCard } from '../../mocks/types';
+import { fetchCards } from '../../store/api-actions';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
 
-type AppScreenProps = {
-  placeCount: number;
-  cards: TCard[];
-}
+function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  //const isLoading = useAppSelector((state) => state.cards.isLoading);
 
-function App({placeCount, cards}: AppScreenProps): JSX.Element {
+  useEffect(() => {
+    dispatch(fetchCards());
+  }, [dispatch]);
+
+  // if (isLoading) {
+  //   return <LoadingSpinner />;
+  // }
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -25,7 +32,7 @@ function App({placeCount, cards}: AppScreenProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <MainScreen placeCount={placeCount} cards={cards}/>
+                <MainScreen/>
               </PrivateRoute>
             }
           />
@@ -45,7 +52,7 @@ function App({placeCount, cards}: AppScreenProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <OfferScreen cards={cards}/>
+                <OfferScreen/>
               </PrivateRoute>
             }
           />
@@ -55,7 +62,7 @@ function App({placeCount, cards}: AppScreenProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavoritesScreen cards={cards}/>
+                <FavoritesScreen/>
               </PrivateRoute>
             }
           />

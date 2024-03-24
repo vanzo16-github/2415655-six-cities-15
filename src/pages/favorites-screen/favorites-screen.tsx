@@ -2,13 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { TCard } from '../../mocks/types';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesScreenProps = {
-  cards: TCard[];
-}
+function FavoritesScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.cards);
 
-function FavoritesScreen({cards}: FavoritesScreenProps): JSX.Element {
   return (
     <div className="page">
       <Header/>
@@ -20,7 +18,7 @@ function FavoritesScreen({cards}: FavoritesScreenProps): JSX.Element {
               <title>Saved listing</title>
             </Helmet>
             <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesList cards={cards}/>
+            <FavoritesList cards={offers}/>
           </section>
         </div>
       </main>
