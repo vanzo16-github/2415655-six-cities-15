@@ -13,15 +13,11 @@ import { useAppDispatch } from '../../hooks';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  //const isLoading = useAppSelector((state) => state.cards.isLoading);
 
   useEffect(() => {
     dispatch(fetchCards());
   }, [dispatch]);
 
-  // if (isLoading) {
-  //   return <LoadingSpinner />;
-  // }
   return (
     <HelmetProvider>
       <BrowserRouter>
