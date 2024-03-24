@@ -1,3 +1,4 @@
+
 export type TUser = {
   name: string;
   avatarUrl: string;
@@ -13,7 +14,7 @@ export type TReview = {
 }
 
 export type TCard = {
-  id: string;
+    id: string;
     title: string;
     type: string;
     price: number;
@@ -47,3 +48,4 @@ export type TCity = {
     location: TLocation;
   }
 
+export type TOpenCard = Omit<TCard, 'images' | 'description' | 'bedrooms' | 'goods' | 'maxAdults' | 'comments' | 'host'>

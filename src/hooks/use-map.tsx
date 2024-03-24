@@ -1,19 +1,18 @@
 import {useEffect, useState, useRef, MutableRefObject} from 'react';
 import { Map, TileLayer } from 'leaflet';
-import { CITY_DEFAULT } from '../const';
+import { TCity } from '../mocks/types';
 
-function useMap(mapRef: MutableRefObject<HTMLElement | null>): Map | null {
+function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: TCity): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
-
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const mapInstance = new Map(mapRef.current, {
         center: {
-          lat: CITY_DEFAULT.location.latitude,
-          lng: CITY_DEFAULT.location.longitude
+          lat: city.location.latitude,
+          lng: city.location.longitude
         },
-        zoom: CITY_DEFAULT.location.zoom,
+        zoom: city.location.zoom,
         scrollWheelZoom: false
       });
 
@@ -30,7 +29,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>): Map | null {
       setMap(mapInstance);
       isRenderedRef.current = true;
     }
-  }, [mapRef]);
+  }, [mapRef, city]);
 
   return map;
 }

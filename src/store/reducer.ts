@@ -1,8 +1,7 @@
 import { TCard } from '../mocks/types';
-import { cards } from '../mocks/mocks';
 import { CITIES, CityName, SortOptions, TSortOptions } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, choiceCity } from './action';
+import { changeSort, chooseCity, getCards } from './action';
 
 type initialStateType = {
   city: CityName;
@@ -12,17 +11,20 @@ type initialStateType = {
 
 const initialState: initialStateType = {
   sortOption: SortOptions.Popular,
-  city: CITIES[0].name,
-  cards,
+  city: CITIES[0],
+  cards: [],
 };
 
 const reducer = createReducer(initialState, (builder)=> {
-  builder.addCase(choiceCity, (state, action) => {
+  builder.addCase(chooseCity, (state, action) => {
     state.city = action.payload;
+  });
+  builder.addCase(getCards, (state, action) => {
+    state.cards = action.payload.cards;
   });
   builder.addCase(changeSort, (state, action) => {
     state.sortOption = action.payload.option;
   });
 });
 
-export {reducer, choiceCity};
+export {reducer, chooseCity};

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { TCard } from '../../mocks/types';
+import { TOpenCard } from '../../mocks/types';
 
 export type PlaceCardProps = {
-  card: TCard;
-  handleHover: (card?:TCard)=>void;
+  card: TOpenCard;
+  handleHover: (card?:TOpenCard)=>void;
 }
 
 function PlaceCard({ card, handleHover }: PlaceCardProps): JSX.Element {

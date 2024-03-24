@@ -1,51 +1,55 @@
 import {useRef, useEffect} from 'react';
-import leaflet, { LayerGroup } from 'leaflet';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
-import { TCard } from '../../mocks/types';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
+import { TCity, TOpenCard } from '../../mocks/types';
+//import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 
 type MapProps = {
-  cards: TCard[];
-  selectedCard ?: TCard | null;
+  cards: TOpenCard[];
+  selectedCard ?: TOpenCard | null;
   classMap: string;
-  city?: TCard | null;
+  city: TCity;
 };
+
+const defaultIcon = new Icon({
+  iconUrl: 'img/pin.svg',
+  iconSize: [27, 39],
+  iconAnchor: [13, 39]
+});
+
+const currentIcon = new Icon({
+  iconUrl: 'img/pin-active.svg',
+  iconSize: [27, 39],
+  iconAnchor: [13, 39]
+});
 
 function Map({cards, selectedCard, classMap, city }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const map = useMap(mapRef);
-  const markerLayer = useRef<LayerGroup>(leaflet.layerGroup());
-
-  const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const currentCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
+      const markerLayer = layerGroup().addTo(map);
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
-      markerLayer.current.addTo(map);
-      markerLayer.current.clearLayers();
       cards.forEach((card) => {
-        leaflet
-          .marker({
-            lat: card.city.location.latitude,
-            lng: card.city.location.longitude
-          },{
-            icon: selectedCard && selectedCard.id === card.id ? currentCustomIcon : defaultCustomIcon
-          })
-          .addTo(markerLayer.current);
+        const marker = new Marker({
+          lat: card.location.latitude,
+          lng: card.location.longitude
+        });
+        marker
+          .setIcon(
+            selectedCard && selectedCard.id === card.id ? currentIcon : defaultIcon
+          )
+          .addTo(markerLayer);
       });
+
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
-  }, [map, cards, selectedCard, defaultCustomIcon, currentCustomIcon, city]);
+
+  }, [map, cards, selectedCard, city]);
 
 
   return <section className={`map ${classMap}`} ref={mapRef}/>;

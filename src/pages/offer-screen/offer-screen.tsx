@@ -1,7 +1,6 @@
 import Header from '../../components/header/header';
 import OfferContainer from '../../components/offer-container/offer-container';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
-//import NearPlaces from '../../components/near-places/near-places';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';

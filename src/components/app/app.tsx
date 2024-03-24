@@ -7,8 +7,21 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-rout';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen';
+import { fetchCards } from '../../store/api-actions';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  //const isLoading = useAppSelector((state) => state.cards.isLoading);
+
+  useEffect(() => {
+    dispatch(fetchCards());
+  }, [dispatch]);
+
+  // if (isLoading) {
+  //   return <LoadingSpinner />;
+  // }
   return (
     <HelmetProvider>
       <BrowserRouter>
