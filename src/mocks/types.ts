@@ -49,3 +49,16 @@ export type TCity = {
   }
 
 export type TOpenCard = Omit<TCard, 'images' | 'description' | 'bedrooms' | 'goods' | 'maxAdults' | 'comments' | 'host'>
+
+export type TAuthorization = {
+  email: string;
+  password: string;
+}
+
+export type TUserLogIn = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  email: string;
+  token: string;
+}

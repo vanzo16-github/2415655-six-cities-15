@@ -1,5 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import LoginScreen from '../../pages/login-screen/login-screen';
 //import OfferScreen from '../../pages/offer-screen/offer-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
@@ -7,17 +7,19 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-rout';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen';
-import { fetchCards } from '../../store/api-actions';
+import { checkAuthAction, fetchCards } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Spinner from '../spinner/spinner';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const isLoading = useAppSelector((state) => state.offers.isLoading);
 
   useEffect(() => {
     dispatch(fetchCards());
+    dispatch(checkAuthAction());
   }, [dispatch]);
 
   if (isLoading) {
@@ -31,9 +33,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Root}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
-              >
+              <PrivateRoute>
                 <MainScreen/>
               </PrivateRoute>
             }
@@ -41,9 +41,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Login}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
-              >
+              <PrivateRoute>
                 <LoginScreen/>
               </PrivateRoute>
             }
@@ -61,9 +59,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
-              >
+              <PrivateRoute>
                 <FavoritesScreen/>
               </PrivateRoute>
             }

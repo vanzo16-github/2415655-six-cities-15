@@ -94,4 +94,8 @@ export const SortOptions = {
 
 export enum APIRoutes {
   Cards = '/offers',
+  FavoriteCards = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout'
 }
