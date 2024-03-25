@@ -25,7 +25,7 @@ function MainScreen(): JSX.Element {
   };
   const activeSort = useAppSelector((state) => state.sortOption);
 
-  const offers = useAppSelector((state) => state.cards);
+  const offers = useAppSelector((state) => state.offers.cards);
   const currentCity = useAppSelector((state) => state.city);
 
   const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);

@@ -1,18 +1,24 @@
 import { TCard } from '../mocks/types';
 import { CITIES, CityName, SortOptions, TSortOptions } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, chooseCity, getCards } from './action';
+import { changeSort, chooseCity, getCards, setLoading } from './action';
 
 type initialStateType = {
   city: CityName;
-  cards: TCard[];
+  offers: {
+    cards: TCard[];
+    isLoading: boolean;
+  };
   sortOption: TSortOptions;
 };
 
 const initialState: initialStateType = {
   sortOption: SortOptions.Popular,
   city: CITIES[0],
-  cards: [],
+  offers: {
+    cards: [],
+    isLoading: false
+  },
 };
 
 const reducer = createReducer(initialState, (builder)=> {
@@ -20,10 +26,13 @@ const reducer = createReducer(initialState, (builder)=> {
     state.city = action.payload;
   });
   builder.addCase(getCards, (state, action) => {
-    state.cards = action.payload.cards;
+    state.offers.cards = action.payload.cards;
   });
   builder.addCase(changeSort, (state, action) => {
     state.sortOption = action.payload.option;
+  });
+  builder.addCase(setLoading, (state, action) => {
+    state.offers.isLoading = action.payload;
   });
 });
 

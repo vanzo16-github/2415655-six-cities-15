@@ -5,7 +5,7 @@ import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 
 function FavoritesScreen(): JSX.Element {
-  const offers = useAppSelector((state) => state.cards);
+  const offers = useAppSelector((state) => state.offers.cards);
 
   return (
     <div className="page">
