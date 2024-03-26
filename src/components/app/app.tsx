@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import { AppRoute } from '../../const';
 import LoginScreen from '../../pages/login-screen/login-screen';
 //import OfferScreen from '../../pages/offer-screen/offer-screen';
@@ -11,6 +11,8 @@ import { checkAuthAction, fetchCards } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Spinner from '../spinner/spinner';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history-api';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -28,7 +30,7 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Root}
@@ -70,7 +72,7 @@ function App(): JSX.Element {
           />
 
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

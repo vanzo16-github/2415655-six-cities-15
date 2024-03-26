@@ -1,8 +1,8 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {getCards, setLoading, switchAutorizationStatus} from './action';
-import { APIRoutes, AuthorizationStatus} from '../const';
+import {getCards, redirectToRoute, setLoading, switchAutorizationStatus} from './action';
+import { APIRoutes, AppRoute, AuthorizationStatus} from '../const';
 import { TAuthorization, TCard, TUserLogIn } from '../mocks/types.js';
 import { dropToken, saveToken } from '../services/token.js';
 
@@ -36,7 +36,6 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     }
   },
 );
-
 export const loginAction = createAsyncThunk<void, TAuthorization, {
   dispatch: AppDispatch;
   state: State;
@@ -44,11 +43,25 @@ export const loginAction = createAsyncThunk<void, TAuthorization, {
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data} = await api.post<TUserLogIn>(APIRoutes.Login, {email, password});
-    saveToken(data.token);
+    const {data: {token}} = await api.post<TUserLogIn>(APIRoutes.Login, {email, password});
+    saveToken(token);
     dispatch(switchAutorizationStatus(AuthorizationStatus.Auth));
+    dispatch(redirectToRoute(AppRoute.Root));
   },
 );
+// export const loginAction = createAsyncThunk<void, TAuthorization, {
+//   dispatch: AppDispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'user/login',
+//   async ({email, password}, {dispatch, extra: api}) => {
+//     const {data} = await api.post<TUserLogIn>(APIRoutes.Login, {email, password});
+//     saveToken(data.token);
+//     dispatch(switchAutorizationStatus(AuthorizationStatus.Auth));
+//     dispatch(redirectToRoute(AppRoute.Root));
+//   },
+// );
 
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -62,3 +75,5 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch(switchAutorizationStatus(AuthorizationStatus.NoAuth));
   },
 );
+
+
