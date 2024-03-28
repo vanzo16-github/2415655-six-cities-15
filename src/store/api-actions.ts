@@ -1,10 +1,11 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {getCards, redirectToRoute, setLoading, switchAutorizationStatus} from './action';
+import {getCards, redirectToRoute, setLoading, setOffer, switchAutorizationStatus} from './action';
 import { APIRoutes, AppRoute, AuthorizationStatus} from '../const';
 import { TAuthorization, TCard, TUserLogIn } from '../mocks/types.js';
 import { dropToken, saveToken } from '../services/token.js';
+import { store } from './index.js';
 
 
 export const fetchCards = createAsyncThunk<void, undefined, {
@@ -43,10 +44,10 @@ export const loginAction = createAsyncThunk<void, TAuthorization, {
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<TUserLogIn>(APIRoutes.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<TUserLogIn>(APIRoutes.Login, {email, password});
+    saveToken(data.token);
     dispatch(switchAutorizationStatus(AuthorizationStatus.Auth));
-    dispatch(redirectToRoute(AppRoute.Root));
+    // dispatch(redirectToRoute(AppRoute.Root));
   },
 );
 // export const loginAction = createAsyncThunk<void, TAuthorization, {
@@ -76,4 +77,34 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const getOfferInfoByID = createAsyncThunk<void, string, {
+  dispatch: typeof store.dispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offer/getOfferInfo',
+  async (id, {dispatch, extra: api}) => {
+    try {
+      dispatch(setLoading(true));
+      const {data} = await api.get<TCard>(`${APIRoutes.Cards}/${id}`);
+      dispatch(setLoading(false));
+      dispatch(setOffer(data));
+    } catch {
+      dispatch(setLoading(false));
+    }
+  }
+);
 
+export const getOffer = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offer/getOffer',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setLoading(true));
+    const {data} = await api.get<TCard>(`${APIRoutes.Cards}`);
+    dispatch(setLoading(false));
+    dispatch(setOffer(data));
+  },
+);

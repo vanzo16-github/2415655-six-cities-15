@@ -1,18 +1,18 @@
 import {Route, Routes} from 'react-router-dom';
 import { AppRoute } from '../../const';
 import LoginScreen from '../../pages/login-screen/login-screen';
-//import OfferScreen from '../../pages/offer-screen/offer-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import PrivateRoute from '../private-route/private-rout';
+//import PrivateRoute from '../private-route/private-rout';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen';
-import { checkAuthAction, fetchCards } from '../../store/api-actions';
+import { checkAuthAction, fetchCards, getOffer } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Spinner from '../spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history-api';
+import OfferScreen from '../../pages/offer-screen/offer-screen';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,6 +21,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchCards());
+    dispatch(getOffer());
     dispatch(checkAuthAction());
   }, [dispatch]);
 
@@ -35,35 +36,25 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Root}
             element={
-              <PrivateRoute>
-                <MainScreen/>
-              </PrivateRoute>
+              <MainScreen/>
             }
           />
           <Route
             path={AppRoute.Login}
             element={
-              <PrivateRoute>
-                <LoginScreen/>
-              </PrivateRoute>
+              <LoginScreen/>
             }
           />
-          {/* <Route
+          <Route
             path={AppRoute.Offer}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
-              >
-                <OfferScreen/>
-              </PrivateRoute>
+              <OfferScreen/>
             }
-          /> */}
+          />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute>
-                <FavoritesScreen/>
-              </PrivateRoute>
+              <FavoritesScreen/>
             }
           />
           <Route

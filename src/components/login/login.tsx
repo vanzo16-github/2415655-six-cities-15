@@ -2,6 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { useAppDispatch } from '../../hooks';
 import { FormEvent, useRef } from 'react';
 import { loginAction } from '../../store/api-actions';
+import { redirectToRoute } from '../../store/action';
+import { AppRoute } from '../../const';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -18,7 +20,7 @@ function Login(): JSX.Element {
         email: loginRef.current.value,
         password: passwordRef.current.value
       }));
-    //  dispatch(redirectToRoute(AppRoute.Favorites));
+      dispatch(redirectToRoute(AppRoute.Root));
     }
   };
   return (

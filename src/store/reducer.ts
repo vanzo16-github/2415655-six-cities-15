@@ -1,16 +1,19 @@
-import { TCard } from '../mocks/types';
+import { TCard, TOpenCard } from '../mocks/types';
 import { AuthorizationStatus, CITIES, CityName, SortOptions, TSortOptions } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, chooseCity, getCards, setLoading, switchAutorizationStatus } from './action';
+import { changeSort, chooseCity, getCards, setLoading, setOffer, switchAutorizationStatus } from './action';
 
 type initialStateType = {
   city: CityName;
   offers: {
-    cards: TCard[];
+    cards: TOpenCard[];
     isLoading: boolean;
   };
   sortOption: TSortOptions;
   authorizationStatus: AuthorizationStatus;
+  offer: {
+    offerInfo: TCard | null;
+  };
 };
 
 const initialState: initialStateType = {
@@ -20,7 +23,10 @@ const initialState: initialStateType = {
     cards: [],
     isLoading: false
   },
-  authorizationStatus: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown,
+  offer: {
+    offerInfo: null,
+  },
 };
 
 const reducer = createReducer(initialState, (builder)=> {
@@ -39,6 +45,9 @@ const reducer = createReducer(initialState, (builder)=> {
   });
   builder.addCase(switchAutorizationStatus, (state, action) => {
     state.authorizationStatus = action.payload;
+  });
+  builder.addCase(setOffer, (state, action) => {
+    state.offer.offerInfo = action.payload;
   });
 });
 

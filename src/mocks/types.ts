@@ -48,7 +48,7 @@ export type TCity = {
     location: TLocation;
   }
 
-export type TOpenCard = Omit<TCard, 'images' | 'description' | 'bedrooms' | 'goods' | 'maxAdults' | 'comments' | 'host'>
+export type TOpenCard = Omit<TCard, 'comments' | 'host'>
 
 export type TAuthorization = {
   email: string;
