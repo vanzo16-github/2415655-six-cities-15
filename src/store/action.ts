@@ -13,7 +13,7 @@ export const setLoading = createAction<boolean>('cards/setLoading');
 
 export const switchAutorizationStatus = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
+export const redirectToRoute = createAction<AppRoute>('user/redirectToRoute');
 
 export const setOffer = createAction<TCard>('offer/setOffer');
 

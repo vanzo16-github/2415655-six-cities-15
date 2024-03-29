@@ -47,22 +47,9 @@ export const loginAction = createAsyncThunk<void, TAuthorization, {
     const {data} = await api.post<TUserLogIn>(APIRoutes.Login, {email, password});
     saveToken(data.token);
     dispatch(switchAutorizationStatus(AuthorizationStatus.Auth));
-    // dispatch(redirectToRoute(AppRoute.Root));
+    dispatch(redirectToRoute(AppRoute.Root));
   },
 );
-// export const loginAction = createAsyncThunk<void, TAuthorization, {
-//   dispatch: AppDispatch;
-//   state: State;
-//   extra: AxiosInstance;
-// }>(
-//   'user/login',
-//   async ({email, password}, {dispatch, extra: api}) => {
-//     const {data} = await api.post<TUserLogIn>(APIRoutes.Login, {email, password});
-//     saveToken(data.token);
-//     dispatch(switchAutorizationStatus(AuthorizationStatus.Auth));
-//     dispatch(redirectToRoute(AppRoute.Root));
-//   },
-// );
 
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -72,8 +59,8 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoutes.Logout);
-    dropToken();
     dispatch(switchAutorizationStatus(AuthorizationStatus.NoAuth));
+    dropToken();
   },
 );
 

@@ -72,10 +72,10 @@ function OfferScreen(): JSX.Element {
   const offer = useAppSelector((state) => state.offer.offerInfo);
   const currentCity = useAppSelector((state) => state.city);
   // const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-   // const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
-  // const currentCityLocation = offers.find((item) => item.city.name === currentCity.name);
+  //const currentOffers = offer.filter((offer) => offer.city.name === currentCity.name);
+   const currentCityLocation = offer.find((item) => item);
 
-  console.log(currentCity)
+  console.log(offer)
 
 
   //  const nearOffers = offers.filter((item) => item.id !== id);

@@ -1,12 +1,18 @@
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 function Header(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const {pathname} = useLocation();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   const isLoginPage = pathname === AppRoute.Login;
+  const dispatch = useAppDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logoutAction());
+  };
 
   return (
     <header className="header">
@@ -32,7 +38,7 @@ function Header(): JSX.Element {
                 )}
                 <li className="header__nav-item">
                   <Link className="header__nav-link" to={AppRoute.Login}>
-                    {authorizationStatus === AuthorizationStatus.Auth ? (<span className="header__signout">Sign out</span>) : (<><div className="header__avatar-wrapper user__avatar-wrapper"></div><span className="header__login">Sign in</span></>)}
+                    {authorizationStatus === AuthorizationStatus.Auth ? (<span className="header__signout" onClick={handleLogOut}>Sign out</span>) : (<><div className="header__avatar-wrapper user__avatar-wrapper"></div><span className="header__login">Sign in</span></>)}
                   </Link>
                 </li>
               </ul>

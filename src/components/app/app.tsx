@@ -1,7 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
 import { AppRoute } from '../../const';
 import LoginScreen from '../../pages/login-screen/login-screen';
-import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
+//import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 //import PrivateRoute from '../private-route/private-rout';
 import { HelmetProvider } from 'react-helmet-async';
@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import Spinner from '../spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history-api';
-import OfferScreen from '../../pages/offer-screen/offer-screen';
+//import OfferScreen from '../../pages/offer-screen/offer-screen';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -45,18 +45,20 @@ function App(): JSX.Element {
               <LoginScreen/>
             }
           />
-          <Route
+          {/* <Route
             path={AppRoute.Offer}
             element={
               <OfferScreen/>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path={AppRoute.Favorites}
             element={
-              <FavoritesScreen/>
+              <PrivateRoute>
+                <FavoritesScreen/>
+              </PrivateRoute>
             }
-          />
+          /> */}
           <Route
             path="*"
             element={<NotFoundScreen/>}
