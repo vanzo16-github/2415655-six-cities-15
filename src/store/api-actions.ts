@@ -82,16 +82,16 @@ export const getOfferInfoByID = createAsyncThunk<void, string, {
   }
 );
 
-export const getOffer = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'offer/getOffer',
-  async (id, {dispatch, extra: api}) => {
-    dispatch(setLoading(true));
-    const {data} = await api.get<TCard>(`${APIRoutes.Cards}`);
-    dispatch(setLoading(false));
-    dispatch(setOffer(data));
-  },
-);
+// export const getOffer = createAsyncThunk<void, undefined, {
+//   dispatch: AppDispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'offer/getOffer',
+//   async (id, {dispatch, extra: api}) => {
+//     dispatch(setLoading(true));
+//     const {data} = await api.get<TCard>(`${APIRoutes.Cards}`);
+//     dispatch(setLoading(false));
+//     dispatch(setOffer(data));
+//   },
+// );
