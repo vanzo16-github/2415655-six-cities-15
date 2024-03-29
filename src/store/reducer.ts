@@ -1,15 +1,19 @@
-import { TCard } from '../mocks/types';
-import { CITIES, CityName, SortOptions, TSortOptions } from '../const';
+import { TCard, TOpenCard } from '../mocks/types';
+import { AuthorizationStatus, CITIES, CityName, SortOptions, TSortOptions } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, chooseCity, getCards, setLoading } from './action';
+import { changeSort, chooseCity, getCards, setLoading, setOffer, switchAutorizationStatus } from './action';
 
 type initialStateType = {
   city: CityName;
   offers: {
-    cards: TCard[];
+    cards: TOpenCard[];
     isLoading: boolean;
   };
   sortOption: TSortOptions;
+  authorizationStatus: AuthorizationStatus;
+  offer: {
+    offerInfo: TCard | null;
+  };
 };
 
 const initialState: initialStateType = {
@@ -18,6 +22,10 @@ const initialState: initialStateType = {
   offers: {
     cards: [],
     isLoading: false
+  },
+  authorizationStatus: AuthorizationStatus.Unknown,
+  offer: {
+    offerInfo: null,
   },
 };
 
@@ -32,7 +40,14 @@ const reducer = createReducer(initialState, (builder)=> {
     state.sortOption = action.payload.option;
   });
   builder.addCase(setLoading, (state, action) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     state.offers.isLoading = action.payload;
+  });
+  builder.addCase(switchAutorizationStatus, (state, action) => {
+    state.authorizationStatus = action.payload;
+  });
+  builder.addCase(setOffer, (state, action) => {
+    state.offer.offerInfo = action.payload;
   });
 });
 
