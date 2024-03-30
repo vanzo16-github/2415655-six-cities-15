@@ -1,7 +1,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {getCards, redirectToRoute, setLoading, setOffer, switchAutorizationStatus} from './action';
+import {getCards, redirectToRoute, setLoading, setNearOffers, setOffer, switchAutorizationStatus} from './action';
 import { APIRoutes, AppRoute, AuthorizationStatus} from '../const';
 import { TAuthorization, TCard, TUserLogIn } from '../mocks/types.js';
 import { dropToken, saveToken } from '../services/token.js';
@@ -94,4 +94,15 @@ export const getOffer = createAsyncThunk<void, undefined, {
     dispatch(setLoading(false));
     dispatch(setOffer(data));
   },
+);
+
+export const fetchNearbyCards = createAsyncThunk<void, string, {
+  dispatch: typeof store.dispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('offer/fetchNearbyCards',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<TCard[]>(`${APIRoutes.Cards}/${id}/nearby`);
+    dispatch(setNearOffers(data));
+  }
 );

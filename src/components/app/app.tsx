@@ -9,15 +9,15 @@ import MainScreen from '../../pages/main-screen/main-screen';
 import { checkAuthAction, fetchCards, getOffer } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Spinner from '../spinner/spinner';
+//import Spinner from '../spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history-api';
-//import OfferScreen from '../../pages/offer-screen/offer-screen';
+import OfferScreen from '../../pages/offer-screen/offer-screen';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const isLoading = useAppSelector((state) => state.offers.isLoading);
+  //const isLoading = useAppSelector((state) => state.offers.isLoading);
 
   useEffect(() => {
     dispatch(fetchCards());
@@ -25,9 +25,9 @@ function App(): JSX.Element {
     dispatch(checkAuthAction());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <Spinner/>;
-  }
+  // if (isLoading) {
+  //   return <Spinner/>;
+  // }
 
   return (
     <HelmetProvider>
@@ -45,12 +45,12 @@ function App(): JSX.Element {
               <LoginScreen/>
             }
           />
-          {/* <Route
+          <Route
             path={AppRoute.Offer}
             element={
               <OfferScreen/>
             }
-          /> */}
+          />
           {/* <Route
             path={AppRoute.Favorites}
             element={

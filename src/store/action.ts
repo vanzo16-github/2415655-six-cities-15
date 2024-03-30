@@ -17,3 +17,6 @@ export const redirectToRoute = createAction<AppRoute>('user/redirectToRoute');
 
 export const setOffer = createAction<TCard>('offer/setOffer');
 
+export const setNearOffers = createAction<TOpenCard[]>('offer/setNearOffer');
+
+
