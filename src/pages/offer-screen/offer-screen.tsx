@@ -4,14 +4,14 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchNearbyCards, fetchOfferComments, getOfferInfoByID } from '../../store/api-actions';
+import { getNearbyCards, getOfferId } from '../../store/api-actions';
 import OfferTitle from '../../components/offer-title/offer-title';
 import OfferRating from '../../components/offer-rating/offer-rating';
 import OfferFeatures from '../../components/offer-features/offer-features';
 import OfferPrice from '../../components/offer-price/offer-price';
 import OfferInside from '../../components/offer-insides/offer-insides';
 import PlaceCard from '../../components/place-card/place-card';
-import ReviewsList from '../../components/reviews-list/reviews-list';
+//import ReviewsList from '../../components/reviews-list/reviews-list';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 
 function OfferScreen(): JSX.Element {
@@ -20,13 +20,12 @@ function OfferScreen(): JSX.Element {
 
   useEffect(() => {
     if (id) {
-      dispatch(getOfferInfoByID(id));
-      dispatch(fetchNearbyCards(id));
-      dispatch(fetchOfferComments(id));
+      dispatch(getOfferId(id));
+      dispatch(getNearbyCards(id));
     }
   }, [id, dispatch]);
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   const offerInfo = useAppSelector((state) => state.offer.offerInfo);
   const nearbyCards = useAppSelector((state) => state.offer.nearbyCards);
   const nearOffersThree = nearbyCards.slice(0, 3);
@@ -36,7 +35,6 @@ function OfferScreen(): JSX.Element {
   }
 
   const {images, title, isPremium, maxAdults, type, bedrooms, goods, price, offerComments, description} = offerInfo;
-  console.log(images);
 
   return (
     <div className="page">
@@ -71,11 +69,11 @@ function OfferScreen(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <section className="offer__reviews reviews">
+              {/* <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerComments.length}</span></h2>
                 <ReviewsList reviews={offerComments}/>
                 {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm />}
-              </section>
+              </section> */}
             </div>
           </div>
           <Map cards={[offerInfo, ...nearOffersThree]} selectedCard={offerInfo} city={offerInfo.city} classMap='offer__map'/>

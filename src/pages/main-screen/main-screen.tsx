@@ -24,11 +24,8 @@ function MainScreen(): JSX.Element {
     setSelectedCard(card);
   };
   const activeSort = useAppSelector((state) => state.sortOption);
-
   const offers = useAppSelector((state) => state.offers.cards);
   const currentCity = useAppSelector((state) => state.city);
-  // const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
   const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
   const dispatch = useAppDispatch();
 
