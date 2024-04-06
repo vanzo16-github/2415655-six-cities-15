@@ -2,20 +2,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-// import { TLoggedUser } from '../../mocks/types';
-// import { State } from '../../types/state';
-
-// enum NameSpace {
-//   City = 'CITY',
-//   User = 'USER',
-//   Cards = 'CARDS',
-//   Offer = 'OFFER',
-//   Favorite = 'FAVORITE'
-// }
 
 function Header(): JSX.Element {
   const userInfo = useAppSelector((state) => state.userInfo);
 
+  const offers = useAppSelector((state) => state.offers.cards);
+  const favoriteOffers = offers.filter((card) => card.isFavorite);
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const {pathname} = useLocation();
@@ -45,7 +37,7 @@ function Header(): JSX.Element {
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
                       <span className="header__user-name user__name">{userInfo && userInfo.email}</span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoriteOffers.length}</span>
                     </Link>
                   </li>
                 )}

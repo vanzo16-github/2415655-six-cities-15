@@ -116,3 +116,17 @@ export const postComment = createAsyncThunk<void, CommentInfo, {
     dispatch(setComments([...state.offer.comments, data]));
   }
 );
+
+export const fetchFavoriteCards = createAsyncThunk<void, undefined, {
+  dispatch: typeof store.dispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'favorite/fetchFavoriteCards',
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(setLoading(true));
+    const {data} = await api.get<TCard[]>(APIRoutes.FavoriteCards);
+    dispatch(setLoading(false));
+    dispatch(getCards({cards: data}));
+  }
+);
