@@ -19,4 +19,4 @@ export const setOffer = createAction<TCard>('offer/setOffer');
 
 export const setNearOffers = createAction<TOpenCard[]>('offer/setNearOffer');
 
-export const setComments = createAction<TReview[]>('offer/setComments');
+export const setComments = createAction<TReview[]>('offer/setOfferComments');

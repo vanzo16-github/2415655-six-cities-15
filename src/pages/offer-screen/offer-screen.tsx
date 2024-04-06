@@ -4,15 +4,16 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { getNearbyCards, getOfferId } from '../../store/api-actions';
+import { fetchOfferComments, fetchNearbyCards, fetchOfferId } from '../../store/api-actions';
 import OfferTitle from '../../components/offer-title/offer-title';
 import OfferRating from '../../components/offer-rating/offer-rating';
 import OfferFeatures from '../../components/offer-features/offer-features';
 import OfferPrice from '../../components/offer-price/offer-price';
 import OfferInside from '../../components/offer-insides/offer-insides';
 import PlaceCard from '../../components/place-card/place-card';
-//import ReviewsList from '../../components/reviews-list/reviews-list';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
+//import { AuthorizationStatus } from '../../const';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
@@ -20,26 +21,29 @@ function OfferScreen(): JSX.Element {
 
   useEffect(() => {
     if (id) {
-      dispatch(getOfferId(id));
-      dispatch(getNearbyCards(id));
+      dispatch(fetchOfferId(id));
+      dispatch(fetchNearbyCards(id));
+      dispatch(fetchOfferComments(id));
     }
   }, [id, dispatch]);
 
 
   const offerInfo = useAppSelector((state) => state.offer.offerInfo);
   const nearbyCards = useAppSelector((state) => state.offer.nearbyCards);
+  const offerComments = useAppSelector((state) => state.offer.comments);
   const nearOffersThree = nearbyCards.slice(0, 3);
+  //  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  if (typeof offerInfo === 'undefined') {
+
+  if (!offerInfo) {
     return <NotFoundScreen />;
   }
 
-  const {images, title, isPremium, maxAdults, type, bedrooms, goods, price, offerComments, description} = offerInfo;
+  const {images, title, isPremium, maxAdults, type, bedrooms, goods, price, description} = offerInfo;
 
   return (
     <div className="page">
       <Header/>
-      <p>{goods}</p>
       <main className="page__main page__main--offer">
         <section className="offer">
           <OfferGallery images={images}/>
@@ -69,11 +73,11 @@ function OfferScreen(): JSX.Element {
                   </p>
                 </div>
               </div>
-              {/* <section className="offer__reviews reviews">
+              <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerComments.length}</span></h2>
                 <ReviewsList reviews={offerComments}/>
-                {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm />}
-              </section> */}
+                {/* {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm/>} */}
+              </section>
             </div>
           </div>
           <Map cards={[offerInfo, ...nearOffersThree]} selectedCard={offerInfo} city={offerInfo.city} classMap='offer__map'/>
