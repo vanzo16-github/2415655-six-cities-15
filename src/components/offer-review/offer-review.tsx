@@ -14,7 +14,7 @@ function OfferReview({isAuth, reviews}: OfferReviewProps): JSX.Element {
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ReviewsList reviews={reviews}/>
       {isAuth === AuthorizationStatus.Auth && <OfferForm/>}
-      {AuthorizationStatus.NoAuth && <p>Нужна авторизация</p>}
+      {isAuth === AuthorizationStatus.NoAuth && <p>Нужна авторизация</p>}
     </section>
   );
 }

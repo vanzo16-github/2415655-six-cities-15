@@ -3,7 +3,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import {getCards, redirectToRoute, setComments, setLoading, setNearOffers, setOffer, switchAutorizationStatus} from './action';
 import { APIRoutes, AppRoute, AuthorizationStatus} from '../const';
-import { TAuthorization, TCard, TReview, TUserLogIn } from '../mocks/types.js';
+import { CommentInfo,TAuthorization, TCard, TReview, TUserLogIn } from '../mocks/types.js';
 import { dropToken, saveToken } from '../services/token.js';
 import { store } from './index.js';
 
@@ -97,5 +97,18 @@ export const fetchOfferComments = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<TReview[]>(`${APIRoutes.Comments}/${id}`);
     dispatch(setComments(data));
+  }
+);
+
+export const postComment = createAsyncThunk<void, CommentInfo, {
+  dispatch: typeof store.dispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offer/postComment',
+  async ({id, comment}, {getState, dispatch, extra: api}) => {
+    const {data} = await api.post<TReview>(`${APIRoutes.Comments}/${id}`, {comment: comment.review, rating: +comment.rating});
+    const state = getState();
+    dispatch(setComments([...state.offer.comments, data]));
   }
 );

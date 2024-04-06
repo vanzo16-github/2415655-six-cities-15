@@ -11,7 +11,6 @@ import OfferFeatures from '../../components/offer-features/offer-features';
 import OfferPrice from '../../components/offer-price/offer-price';
 import OfferInside from '../../components/offer-insides/offer-insides';
 import PlaceCard from '../../components/place-card/place-card';
-import ReviewsList from '../../components/reviews-list/reviews-list';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import OfferReview from '../../components/offer-review/offer-review';
 //import { AuthorizationStatus } from '../../const';
@@ -31,8 +30,9 @@ function OfferScreen(): JSX.Element {
 
   const offerInfo = useAppSelector((state) => state.offer.offerInfo);
   const nearbyCards = useAppSelector((state) => state.offer.nearbyCards);
-  const offerComments = useAppSelector((state) => state.offer.comments);
   const nearOffersThree = nearbyCards.slice(0, 3);
+  const offerComments = useAppSelector((state) => state.offer.comments);
+  const offerCommentsSliced = offerComments.slice(0, 10);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
 
@@ -77,7 +77,7 @@ function OfferScreen(): JSX.Element {
               <section className="offer__reviews reviews">
                 {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerComments.length}</span></h2> */}
                 {/* <ReviewsList reviews={offerComments}/> */}
-                <OfferReview reviews={offerComments} isAuth={authorizationStatus}/>
+                <OfferReview reviews={offerCommentsSliced} isAuth={authorizationStatus}/>
                 {/* {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm/>} */}
               </section>
             </div>
