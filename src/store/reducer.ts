@@ -1,7 +1,7 @@
-import { TCard, TOpenCard, TReview } from '../mocks/types';
+import { TCard, TOpenCard, TReview, TUserLogIn } from '../mocks/types';
 import { AuthorizationStatus, CITIES, CityName, SortOptions, TSortOptions } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, chooseCity, getCards, setComments, setLoading, setNearOffers, setOffer, switchAutorizationStatus } from './action';
+import { changeSort, chooseCity, getCards, setComments, setLoading, setNearOffers, setOffer, setUserInfo, switchAutorizationStatus } from './action';
 
 type initialStateType = {
   city: CityName;
@@ -11,6 +11,7 @@ type initialStateType = {
   };
   sortOption: TSortOptions;
   authorizationStatus: AuthorizationStatus;
+  userInfo: TUserLogIn | null;
   offer: {
     offerInfo: TCard | null;
     nearbyCards: TOpenCard[];
@@ -26,6 +27,7 @@ const initialState: initialStateType = {
     isLoading: false
   },
   authorizationStatus: AuthorizationStatus.Unknown,
+  userInfo: null,
   offer: {
     offerInfo: null,
     nearbyCards: [],
@@ -58,6 +60,9 @@ const reducer = createReducer(initialState, (builder)=> {
   });
   builder.addCase(setComments, (state, action) => {
     state.offer.comments = action.payload;
+  });
+  builder.addCase(setUserInfo, (state, action) => {
+    state.userInfo = action.payload;
   });
 });
 

@@ -2,8 +2,21 @@ import { Link, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+// import { TLoggedUser } from '../../mocks/types';
+// import { State } from '../../types/state';
+
+// enum NameSpace {
+//   City = 'CITY',
+//   User = 'USER',
+//   Cards = 'CARDS',
+//   Offer = 'OFFER',
+//   Favorite = 'FAVORITE'
+// }
 
 function Header(): JSX.Element {
+  const userInfo = useAppSelector((state) => state.userInfo);
+
+
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const {pathname} = useLocation();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
@@ -31,7 +44,7 @@ function Header(): JSX.Element {
                     <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__user-name user__name">{userInfo && userInfo.email}</span>
                       <span className="header__favorite-count">3</span>
                     </Link>
                   </li>

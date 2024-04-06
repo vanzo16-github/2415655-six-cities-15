@@ -1,7 +1,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {getCards, redirectToRoute, setComments, setLoading, setNearOffers, setOffer, switchAutorizationStatus} from './action';
+import {getCards, redirectToRoute, setComments, setLoading, setNearOffers, setOffer, setUserInfo, switchAutorizationStatus} from './action';
 import { APIRoutes, AppRoute, AuthorizationStatus} from '../const';
 import { CommentInfo,TAuthorization, TCard, TReview, TUserLogIn } from '../mocks/types.js';
 import { dropToken, saveToken } from '../services/token.js';
@@ -30,8 +30,10 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get(APIRoutes.Login);
+      const {data} = await api.get<TUserLogIn>(APIRoutes.Login);
       dispatch(switchAutorizationStatus(AuthorizationStatus.Auth));
+      dispatch(setUserInfo(data));
+
     } catch {
       dispatch(switchAutorizationStatus(AuthorizationStatus.NoAuth));
     }
@@ -46,6 +48,7 @@ export const loginAction = createAsyncThunk<void, TAuthorization, {
   async ({email, password}, {dispatch, extra: api}) => {
     const {data} = await api.post<TUserLogIn>(APIRoutes.Login, {email, password});
     saveToken(data.token);
+    dispatch(setUserInfo(data));
     dispatch(switchAutorizationStatus(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Root));
   },
@@ -60,6 +63,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoutes.Logout);
     dispatch(switchAutorizationStatus(AuthorizationStatus.NoAuth));
+    dispatch(setUserInfo(null));
     dropToken();
   },
 );

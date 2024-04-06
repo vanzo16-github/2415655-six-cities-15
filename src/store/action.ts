@@ -1,7 +1,7 @@
 
 import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus, CityName, TSortOptions } from '../const';
-import { TCard, TOpenCard, TReview } from '../mocks/types';
+import { TCard, TOpenCard, TReview, TUserLogIn } from '../mocks/types';
 
 export const chooseCity = createAction<CityName>('offers/chooseCity');
 
@@ -20,3 +20,6 @@ export const setOffer = createAction<TCard>('offer/setOffer');
 export const setNearOffers = createAction<TOpenCard[]>('offer/setNearOffer');
 
 export const setComments = createAction<TReview[]>('offer/setOfferComments');
+
+export const setUserInfo = createAction<TUserLogIn | null>('user/setLoggedUserInfo');
+
