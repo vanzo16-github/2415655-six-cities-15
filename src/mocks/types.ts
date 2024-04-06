@@ -48,7 +48,7 @@ export type TCity = {
     location: TLocation;
   }
 
-export type TOpenCard = Omit<TCard, 'comments' | 'host'>
+export type TOpenCard = Omit<TCard, 'images' | 'description' | 'bedrooms' | 'goods' | 'maxAdults' | 'comments' | 'host'>
 
 export type TAuthorization = {
   email: string;
@@ -61,6 +61,16 @@ export type TUserLogIn = {
   isPro: boolean;
   email: string;
   token: string;
+}
+
+export type FormInfo = {
+  rating: string;
+  review: string;
+}
+
+export type CommentInfo = {
+  id: string;
+  comment: FormInfo;
 }
 
 //export type TUser = Omit<TUserLogIn, 'images' | 'description' | 'bedrooms' | 'goods' | 'maxAdults' | 'comments' | 'host'>

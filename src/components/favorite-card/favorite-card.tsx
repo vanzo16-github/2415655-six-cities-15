@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { TCard } from '../../mocks/types';
+import { TOpenCard } from '../../mocks/types';
 import Places from '../places/places';
 
 type FavoriteCardProps = {
   city: string;
-  cards: TCard[];
+  cards: TOpenCard[];
 }
 
 function FavoriteCard({ city, cards }: FavoriteCardProps): JSX.Element {

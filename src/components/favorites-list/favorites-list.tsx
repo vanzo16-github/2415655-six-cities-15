@@ -1,11 +1,11 @@
-import { TCard } from '../../mocks/types';
+import { TOpenCard } from '../../mocks/types';
 import FavoriteCard from '../favorite-card/favorite-card';
 
 type CityGroupType = {
-  [key: string]: TCard[];
+  [key: string]: TOpenCard[];
 }
 
-function groupOffersByCity(items: TCard[]): CityGroupType {
+function groupOffersByCity(items: TOpenCard[]): CityGroupType {
 
   const groupedItems = items.reduce((accumulator: CityGroupType, item) => {
     const cityName = item.city.name;
@@ -23,7 +23,7 @@ function groupOffersByCity(items: TCard[]): CityGroupType {
 }
 
 type FavoritesListProps = {
-  cards: TCard[];
+  cards: TOpenCard[];
 }
 
 function FavoritesList({cards}: FavoritesListProps): JSX.Element {

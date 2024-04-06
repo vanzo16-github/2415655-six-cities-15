@@ -1,121 +1,107 @@
-// import Header from '../../components/header/header';
-// import OfferContainer from '../../components/offer-container/offer-container';
-// import OfferGallery from '../../components/offer-gallery/offer-gallery';
-// import { useParams } from 'react-router-dom';
-// import NotFoundScreen from '../not-found-screen/not-found-screen';
-// import Map from '../../components/map/map';
-// import PlaceCard from '../../components/place-card/place-card';
-// import { useAppDispatch, useAppSelector } from '../../hooks';
-// import { TCard } from '../../mocks/types';
-// import { useEffect, useState } from 'react';
-// import { getOfferInfoByID } from '../../store/api-actions';
+import Header from '../../components/header/header';
+import { useParams } from 'react-router-dom';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Map from '../../components/map/map';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchOfferComments, fetchNearbyCards, fetchOfferId } from '../../store/api-actions';
+import OfferTitle from '../../components/offer-title/offer-title';
+import OfferRating from '../../components/offer-rating/offer-rating';
+import OfferFeatures from '../../components/offer-features/offer-features';
+import OfferPrice from '../../components/offer-price/offer-price';
+import OfferInside from '../../components/offer-insides/offer-insides';
+import PlaceCard from '../../components/place-card/place-card';
+import OfferGallery from '../../components/offer-gallery/offer-gallery';
+import OfferReview from '../../components/offer-review/offer-review';
+//import { AuthorizationStatus } from '../../const';
 
-// // function ImageItem({image}: {image: string}): JSX.Element {
-// //   return (
-// //     <div className="offer__image-wrapper">
-// //       <img className="offer__image" src={image} alt="Photo studio" />
-// //     </div>
-// //   );
-// // }
+function OfferScreen(): JSX.Element {
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
 
-// // function ImagesList({images}: {images: string[]}): JSX.Element {
-// //   return (
-// //     <div className="offer__gallery-container container">
-// //       <div className="offer__gallery">
-// //         {images.map((image) => <ImageItem image={image} key={image} />)}
-// //       </div>
-// //     </div>
-// //   );
-// // }
-
-// function OfferScreen(): JSX.Element {
-//   const { id } = useParams();
-//   const dispatch = useAppDispatch();
-
-//   useEffect(() => {
-//     if (id) {
-//       dispatch(getOfferInfoByID(id));
-//     }
-//   }, [id, dispatch]);
-
-//   // useEffect(() => {
-//   //   if (id) {
-//   //     dispatch(getOfferInfoByID(id));
-//   //   }
-//   // }, [id, dispatch]);
-
-//   // const [selectedCard, setSelectedCard] = useState<TCard | null>();
-
-//   // const handleSelectActiveCard = (card?: TCard) => {
-//   //   setSelectedCard(card);
-//   // };
-//   // const activeSort = useAppSelector((state) => state.sortOption);
-
-//    //const offers = useAppSelector((state) => state.offer);
-//   // const currentCity = useAppSelector((state) => state.city);
-//  // console.log(offers);
-//  // const offerParams = offers.find((item) => item.id === id);
-//   // const offers = useAppSelector((state) => state.cards);
-//   // const currentCity = useAppSelector((state) => state.city);
-//   //const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
-//   //const currentCityLocation = offers.find((item) => item.city.name === currentCity);
-//   // console.log(currentCity)
-//   // const offerParams = offers.find((item) => item.id === id);
-//  // const nearOffers = offers.filter((item) => item.id !== id);
-//   //const nearOffersThree = nearOffers.slice(0, 3);
-//   // const [selectedCard, setSelectedCard] = useState<TCard | null>();
-
-//   // const handleSelectActiveCard = (card?: TCard) => {
-//   //   setSelectedCard(card);
-//   // };
-
-//   const offer = useAppSelector((state) => state.offer.offerInfo);
-//   const currentCity = useAppSelector((state) => state.city);
-//   // const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-//   //const currentOffers = offer.filter((offer) => offer.city.name === currentCity.name);
-//    const currentCityLocation = offer.find((item) => item);
-
-//   console.log(offer)
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferId(id));
+      dispatch(fetchNearbyCards(id));
+      dispatch(fetchOfferComments(id));
+    }
+  }, [id, dispatch]);
 
 
-//   //  const nearOffers = offers.filter((item) => item.id !== id);
-//   // const nearOffersThree = nearOffers.slice(0, 3);
+  const offerInfo = useAppSelector((state) => state.offer.offerInfo);
+  const nearbyCards = useAppSelector((state) => state.offer.nearbyCards);
+  const nearOffersThree = nearbyCards.slice(0, 3);
+  const offerComments = useAppSelector((state) => state.offer.comments);
+  const offerCommentsSliced = offerComments.slice(0, 10);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
 
-//   if (typeof offer === 'undefined') {
-//     return <NotFoundScreen />;
-//   }
+  if (!offerInfo) {
+    return <NotFoundScreen />;
+  }
 
-//   //const {images, title, isPremium, maxAdults, type, bedrooms, goods, price, comments} = offer;
-//   return (
-//     <div className="page">
-//       <Header/>
-//       <p>{offer.title}</p>
-//       <main className="page__main page__main--offer">
-//         <section className="offer">
-//           {/* <ImagesList images={images}/> */}
-//           {/* <OfferGallery images={images}/> */}
-//           {/* <OfferContainer title={title} isPremium={isPremium} maxAdults={maxAdults} type={type} bedrooms={bedrooms} features={goods} price={price} reviews={comments}/> */}
-//           {/* <Map cards={[offerParams, ...nearOffersThree]} selectedCard={offerParams} city={currentCity} classMap='offer__map'/> */}
-//         </section>
-//         <div className="container">
-//           <section className="near-places places">
-//             <h2 className="near-places__title">Other places in the neighborhood</h2>
-//             <div className="near-places__list places__list">
-//               {/* {nearOffersThree.map((card) =>(
-//                 <PlaceCard
-//                   key={card.id}
-//                   card={card} handleHover={function (): void {
-//                     throw new Error('Function not implemented.');
-//                   } }
-//                 />
-//               ))} */}
-//             </div>
-//           </section>
-//         </div>
-//       </main>
-//     </div>
-//   );
-// }
+  const {images, title, isPremium, maxAdults, type, bedrooms, goods, price, description} = offerInfo;
 
-// export default OfferScreen;
+  return (
+    <div className="page">
+      <Header/>
+      <main className="page__main page__main--offer">
+        <section className="offer">
+          <OfferGallery images={images}/>
+          <div className="offer__container container">
+            <div className="offer__wrapper">
+              {isPremium && <div className="offer__mark"><span>Premium</span></div>}
+              <OfferTitle title={title}/>
+              <OfferRating/>
+              <OfferFeatures maxAdults={maxAdults} type={type} bedrooms={bedrooms}/>
+              <OfferPrice price={price}/>
+              <OfferInside features={goods}/>
+              <OfferRating/>
+              <div className="offer__host">
+                <h2 className="offer__host-title">Meet the host</h2>
+                <div className="offer__host-user user">
+                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                    <img className="offer__avatar user__avatar" src={offerInfo.host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                  </div>
+                  <span className="offer__user-name">
+                    {offerInfo.host.name}
+                  </span>
+                  {offerInfo.host.isPro && (<span className="offer__user-status">Pro</span>)}
+                </div>
+                <div className="offer__description">
+                  <p className="offer__text">
+                    {description}
+                  </p>
+                </div>
+              </div>
+              <section className="offer__reviews reviews">
+                {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerComments.length}</span></h2> */}
+                {/* <ReviewsList reviews={offerComments}/> */}
+                <OfferReview reviews={offerCommentsSliced} isAuth={authorizationStatus}/>
+                {/* {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm/>} */}
+              </section>
+            </div>
+          </div>
+          <Map cards={[offerInfo, ...nearOffersThree]} selectedCard={offerInfo} city={offerInfo.city} classMap='offer__map'/>
+        </section>
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighborhood</h2>
+            <div className="near-places__list places__list">
+              {nearOffersThree.map((card) =>(
+                <PlaceCard
+                  key={card.id}
+                  card={card} handleHover={function (): void {
+                    throw new Error('Function not implemented.');
+                  } }
+                />
+              ))}
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default OfferScreen;
