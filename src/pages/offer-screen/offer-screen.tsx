@@ -13,6 +13,7 @@ import OfferInside from '../../components/offer-insides/offer-insides';
 import PlaceCard from '../../components/place-card/place-card';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
+import OfferReview from '../../components/offer-review/offer-review';
 //import { AuthorizationStatus } from '../../const';
 
 function OfferScreen(): JSX.Element {
@@ -32,7 +33,7 @@ function OfferScreen(): JSX.Element {
   const nearbyCards = useAppSelector((state) => state.offer.nearbyCards);
   const offerComments = useAppSelector((state) => state.offer.comments);
   const nearOffersThree = nearbyCards.slice(0, 3);
-  //  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
 
   if (!offerInfo) {
@@ -74,8 +75,9 @@ function OfferScreen(): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerComments.length}</span></h2>
-                <ReviewsList reviews={offerComments}/>
+                {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerComments.length}</span></h2> */}
+                {/* <ReviewsList reviews={offerComments}/> */}
+                <OfferReview reviews={offerComments} isAuth={authorizationStatus}/>
                 {/* {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm/>} */}
               </section>
             </div>
