@@ -6,7 +6,7 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-rout';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen';
-import { checkAuthAction, fetchCards, fetchFavoriteCards } from '../../store/api-actions';
+import { checkAuthAction, fetchCards, fetchFav } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Spinner from '../spinner/spinner';
@@ -20,7 +20,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchCards());
-    dispatch(fetchFavoriteCards());
+    dispatch(fetchFav());
     dispatch(checkAuthAction());
   }, [dispatch]);
 

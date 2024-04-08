@@ -1,9 +1,9 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {getCards, redirectToRoute, setComments, setLoading, setNearOffers, setOffer, setUserInfo, switchAutorizationStatus} from './action';
+import {favoriteRefresh, getCards, redirectToRoute, setComments, setLoading, setNearOffers, setOffer, setUserInfo, switchAutorizationStatus, switchFavorite} from './action';
 import { APIRoutes, AppRoute, AuthorizationStatus} from '../const';
-import { CommentInfo,TAuthorization, TCard, TReview, TUserLogIn } from '../mocks/types.js';
+import { CommentInfo,TAuthorization, TCard, TOpenCard, TReview, TUserLogIn } from '../mocks/types.js';
 import { dropToken, saveToken } from '../services/token.js';
 import { store } from './index.js';
 
@@ -21,6 +21,31 @@ export const fetchCards = createAsyncThunk<void, undefined, {
     dispatch(getCards({cards: data}));
   },
 );
+
+export const fetchFav = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'cards/fetchFav',
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(setLoading(true));
+    const {data} = await api.get<TCard[]>(APIRoutes.FavoriteCards);
+    dispatch(setLoading(false));
+    dispatch(getCards({cards: data}));
+  },
+);
+// export const fetchCards = createAsyncThunk<TOpenCard[], undefined, {
+//   dispatch: typeof store.dispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'cards/fetchCards',
+//   async (_arg, {extra: api}) => {
+//     const {data} = await api.get<TOpenCard[]>(APIRoutes.Cards);
+//     return data;
+//   }
+// );
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -104,6 +129,18 @@ export const fetchOfferComments = createAsyncThunk<void, string, {
   }
 );
 
+// export const fetchComments = createAsyncThunk<TReview[], string, {
+//   dispatch: typeof store.dispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'offer/fetchOfferComments',
+//   async (id, {extra: api}) => {
+//     const {data} = await api.get<TReview[]>(`${APIRoutes.Comments}/${id}`);
+//     return data;
+//   }
+// );
+
 export const postComment = createAsyncThunk<void, CommentInfo, {
   dispatch: typeof store.dispatch;
   state: State;
@@ -117,16 +154,30 @@ export const postComment = createAsyncThunk<void, CommentInfo, {
   }
 );
 
-export const fetchFavoriteCards = createAsyncThunk<void, undefined, {
+// export const fetchFavoriteCards = createAsyncThunk<void, undefined, {
+//   dispatch: typeof store.dispatch;
+//   state: State;
+//   extra: AxiosInstance;
+// }>(
+//   'favorite/fetchFavoriteCards',
+//   async (_arg, {dispatch, extra: api}) => {
+//     dispatch(setLoading(true));
+//     const {data} = await api.get<TCard[]>(APIRoutes.FavoriteCards);
+//     dispatch(setLoading(false));
+//     dispatch(getCards({cards: data}));
+//   }
+// );
+
+export const changeFavoriteStatus = createAsyncThunk<void, {offerId: string; status: number; isFavorite: boolean}, {
   dispatch: typeof store.dispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'favorite/fetchFavoriteCards',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setLoading(true));
-    const {data} = await api.get<TCard[]>(APIRoutes.FavoriteCards);
-    dispatch(setLoading(false));
-    dispatch(getCards({cards: data}));
+  'favorite/changeStatus',
+  async ({offerId, status}, {dispatch, extra: api}) => {
+    const {data} = await api.post<TOpenCard[]>(`${APIRoutes.FavoriteCards}/${offerId}/${status}`);
+    // dispatch(setOffer(data));
+    dispatch(switchFavorite({cards: data}));
+    dispatch(favoriteRefresh(true));
   }
 );

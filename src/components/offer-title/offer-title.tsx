@@ -1,10 +1,16 @@
 import { Helmet } from 'react-helmet-async';
+import { TOpenCard } from '../../mocks/types';
+import FavoritesButton from '../favorites-button/favorites-button';
 
-type OfferTitleProps = {
+export type OfferTitleProps = {
   title: string;
+  card: TOpenCard;
+//  handleHover: (card?:TOpenCard)=>void;
 }
 
-function OfferTitle({title}: OfferTitleProps): JSX.Element {
+function OfferTitle({title, card}: OfferTitleProps): JSX.Element {
+  const {id, isFavorite} = card;
+
   return (
     <div className="offer__name-wrapper">
       <Helmet>
@@ -15,12 +21,8 @@ function OfferTitle({title}: OfferTitleProps): JSX.Element {
       <h1 className="offer__name">
         {title}
       </h1>
-      <button className="offer__bookmark-button button" type="button">
-        <svg className="offer__bookmark-icon" width="31" height="33">
-          <use xlinkHref="#icon-bookmark"></use>
-        </svg>
-        <span className="visually-hidden">To bookmarks</span>
-      </button>
+      <FavoritesButton className='offer' isFavorite={isFavorite} cardId={id} />
+
     </div>
   );
 }

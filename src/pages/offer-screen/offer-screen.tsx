@@ -51,12 +51,11 @@ function OfferScreen(): JSX.Element {
           <div className="offer__container container">
             <div className="offer__wrapper">
               {isPremium && <div className="offer__mark"><span>Premium</span></div>}
-              <OfferTitle title={title}/>
+              <OfferTitle title={title} card={offerInfo}/>
               <OfferRating/>
               <OfferFeatures maxAdults={maxAdults} type={type} bedrooms={bedrooms}/>
               <OfferPrice price={price}/>
               <OfferInside features={goods}/>
-              <OfferRating/>
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">

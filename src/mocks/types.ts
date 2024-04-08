@@ -73,11 +73,4 @@ export type CommentInfo = {
   comment: FormInfo;
 }
 
-export type TLoggedUser = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-  email: string;
-  token: string;
-}
 //export type TUser = Omit<TUserLogIn, 'images' | 'description' | 'bedrooms' | 'goods' | 'maxAdults' | 'comments' | 'host'>
