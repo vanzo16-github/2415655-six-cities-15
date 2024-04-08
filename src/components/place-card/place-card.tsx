@@ -8,7 +8,7 @@ export type PlaceCardProps = {
 }
 
 function PlaceCard({ card, handleHover }: PlaceCardProps): JSX.Element {
-  const {id, title, type, price, isPremium, isFavorite, previewImage} = card;
+  const {id, title, type, price, isPremium, isFavorite, previewImage, rating} = card;
 
 
   const handleMouseOn = () => {
@@ -47,12 +47,12 @@ function PlaceCard({ card, handleHover }: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{width: `${Math.round(rating) * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

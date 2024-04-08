@@ -5,10 +5,14 @@ export type ReviewsListProps = {
   reviews: TReview[];
 }
 
+const compareDates = (reviewA: TReview, reviewB: TReview) => new Date(reviewB.date).getTime() - new Date(reviewA.date).getTime();
+
 function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
+  const sortedReviews = [...reviews].sort(compareDates);
+
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => <ReviewsItem review={review} key={review.id}/>)}
+      {sortedReviews.map((review) => <ReviewsItem review={review} key={review.id}/>)}
     </ul>
   );
 }

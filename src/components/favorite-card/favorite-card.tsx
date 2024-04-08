@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { TOpenCard } from '../../mocks/types';
 import Places from '../places/places';
+import { useState } from 'react';
 
 type FavoriteCardProps = {
   city: string;
@@ -9,6 +10,11 @@ type FavoriteCardProps = {
 }
 
 function FavoriteCard({ city, cards }: FavoriteCardProps): JSX.Element {
+  const [, setSelectedCard] = useState<TOpenCard | null>();
+
+  const handleSelectActiveCard = (card?: TOpenCard) => {
+    setSelectedCard(card);
+  };
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -19,9 +25,7 @@ function FavoriteCard({ city, cards }: FavoriteCardProps): JSX.Element {
         </div>
       </div>
       <Places
-        cards={cards} handleHover={function (): void {
-          throw new Error('Function not implemented.');
-        } }
+        cards={cards} handleHover={handleSelectActiveCard}
       />
     </li>
   );

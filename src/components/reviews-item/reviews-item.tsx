@@ -4,6 +4,11 @@ export type ReviewsItemProps = {
   review: TReview;
 }
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+};
+
 function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
   const {date, user, comment, rating} = review;
   return (
@@ -26,7 +31,7 @@ function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{formatDate(date)}</time>
       </div>
     </li>
   );

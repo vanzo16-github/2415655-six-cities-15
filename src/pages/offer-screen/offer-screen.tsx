@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchOfferComments, fetchNearbyCards, fetchOfferId } from '../../store/api-actions';
 import OfferTitle from '../../components/offer-title/offer-title';
 import OfferRating from '../../components/offer-rating/offer-rating';
@@ -13,6 +13,7 @@ import OfferInside from '../../components/offer-insides/offer-insides';
 import PlaceCard from '../../components/place-card/place-card';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import OfferReview from '../../components/offer-review/offer-review';
+import { TOpenCard } from '../../mocks/types';
 //import { AuthorizationStatus } from '../../const';
 
 function OfferScreen(): JSX.Element {
@@ -26,6 +27,12 @@ function OfferScreen(): JSX.Element {
       dispatch(fetchOfferComments(id));
     }
   }, [id, dispatch]);
+
+  const [, setSelectedCard] = useState<TOpenCard | null>();
+
+  const handleSelectActiveCard = (card?: TOpenCard) => {
+    setSelectedCard(card);
+  };
 
 
   const offerInfo = useAppSelector((state) => state.offer.offerInfo);
@@ -41,7 +48,6 @@ function OfferScreen(): JSX.Element {
   }
 
   const {images, title, isPremium, maxAdults, type, bedrooms, goods, price, description} = offerInfo;
-
   return (
     <div className="page">
       <Header/>
@@ -52,7 +58,7 @@ function OfferScreen(): JSX.Element {
             <div className="offer__wrapper">
               {isPremium && <div className="offer__mark"><span>Premium</span></div>}
               <OfferTitle title={title} card={offerInfo}/>
-              <OfferRating/>
+              <OfferRating card={offerInfo}/>
               <OfferFeatures maxAdults={maxAdults} type={type} bedrooms={bedrooms}/>
               <OfferPrice price={price}/>
               <OfferInside features={goods}/>
@@ -74,10 +80,7 @@ function OfferScreen(): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                {/* <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerComments.length}</span></h2> */}
-                {/* <ReviewsList reviews={offerComments}/> */}
                 <OfferReview reviews={offerCommentsSliced} isAuth={authorizationStatus}/>
-                {/* {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm/>} */}
               </section>
             </div>
           </div>
@@ -90,9 +93,7 @@ function OfferScreen(): JSX.Element {
               {nearOffersThree.map((card) =>(
                 <PlaceCard
                   key={card.id}
-                  card={card} handleHover={function (): void {
-                    throw new Error('Function not implemented.');
-                  } }
+                  card={card} handleHover={handleSelectActiveCard}
                 />
               ))}
             </div>

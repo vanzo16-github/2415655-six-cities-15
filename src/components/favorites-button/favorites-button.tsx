@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeFavoriteStatus } from '../../store/api-actions';
+import { changeFavoriteStatus, fetchFavoriteCards } from '../../store/api-actions';
 
 type FavoritesButtonProps = {
   cardId: string;
@@ -20,7 +20,7 @@ function FavoritesButton({isFavorite, cardId, className = 'place-card'}: Favorit
       navigate(AppRoute.Login);
       return;
     }
-
+    dispatch(fetchFavoriteCards());
     dispatch(changeFavoriteStatus({
       offerId: cardId,
       status: Number(!isFavorite),
@@ -28,7 +28,6 @@ function FavoritesButton({isFavorite, cardId, className = 'place-card'}: Favorit
     }));
 
   };
-  //console.log(status)
   return (
     <button
       className={`${className}__bookmark-button button ${isFavorite && `${className}__bookmark-button--active`}`}

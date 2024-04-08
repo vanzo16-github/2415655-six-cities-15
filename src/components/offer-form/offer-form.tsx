@@ -10,6 +10,7 @@ type InputItemProps = {
   onInputChange: ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
+
 function InputItem({value, title, checkedValue, onInputChange}: InputItemProps): JSX.Element {
   return (
     <>
@@ -67,7 +68,15 @@ function OfferForm(): JSX.Element{
       dispatch(postComment({
         id: offerId,
         comment: review
-      }));
+      }))
+        .then((response) => {
+          if (response.meta.requestStatus === 'fulfilled') {
+            setReview({
+              rating: '0',
+              review: ''
+            });
+          }
+        });
     }
   };
   return(
@@ -75,28 +84,6 @@ function OfferForm(): JSX.Element{
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Object.entries(RatingNames).map(([rate, title]) => <InputItem value={rate} title={title} key={title} onInputChange={handleChange} checkedValue={review.rating}/>).reverse()}
-
-        {/* {rating.map(({value, label}) => (
-          <Fragment key={value}>
-            <input
-              className="form__rating-input visually-hidden"
-              name="rating"
-              value={value}
-              id={`${value}}-stars`}
-              type="radio"
-              onChange={handleChange}
-            />
-            <label
-              htmlFor={`${value}}-stars`}
-              className="reviews__rating-label form__rating-label"
-              title={label}
-            >
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-          </Fragment>
-        ))} */}
       </div>
       <textarea
         className="reviews__textarea form__textarea"
@@ -115,7 +102,7 @@ function OfferForm(): JSX.Element{
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.review.length < 50}
+          disabled={review.review.length < 50 || review.review.length > 300}
         >
           Submit
         </button>
