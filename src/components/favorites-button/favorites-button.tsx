@@ -24,7 +24,6 @@ function FavoritesButton({isFavorite, cardId, className = 'place-card'}: Favorit
     dispatch(changeFavoriteStatus({
       offerId: cardId,
       status: Number(!isFavorite),
-      isFavorite: isFavorite
     }));
 
   };

@@ -1,7 +1,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {getCards, redirectToRoute, setComments, setLoading, setNearOffers, setOffer, setUserInfo, switchAutorizationStatus, switchFavorite} from './action';
+import {getCards, getFavoriteCards, redirectToRoute, setComments, setLoading, setNearOffers, setOffer, setUserInfo, switchAutorizationStatus, switchFavorite} from './action';
 import { APIRoutes, AppRoute, AuthorizationStatus} from '../const';
 import { CommentInfo,TAuthorization, TCard, TOpenCard, TReview, TUserLogIn } from '../mocks/types.js';
 import { dropToken, saveToken } from '../services/token.js';
@@ -142,11 +142,12 @@ export const fetchFavoriteCards = createAsyncThunk<void, undefined, {
     const {data} = await api.get<TCard[]>(APIRoutes.FavoriteCards);
     dispatch(setLoading(false));
     dispatch(getCards({cards: data}));
+    dispatch(getFavoriteCards({cards: data}));
   }
 );
 
 
-export const changeFavoriteStatus = createAsyncThunk<void, {offerId: string; status: number; isFavorite: boolean}, {
+export const changeFavoriteStatus = createAsyncThunk<void, {offerId: string; status: number}, {
   dispatch: typeof store.dispatch;
   state: State;
   extra: AxiosInstance;
