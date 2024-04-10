@@ -3,13 +3,13 @@ import { TOpenCard } from '../../mocks/types';
 import FavoritesButton from '../favorites-button/favorites-button';
 
 export type OfferTitleProps = {
-  title: string;
+//  title: string;
   card: TOpenCard;
 //  handleHover: (card?:TOpenCard)=>void;
 }
 
-function OfferTitle({title, card}: OfferTitleProps): JSX.Element {
-  const {id, isFavorite} = card;
+function OfferTitle({ card}: OfferTitleProps): JSX.Element {
+  const {title, id, isFavorite} = card;
 
   return (
     <div className="offer__name-wrapper">

@@ -1,5 +1,5 @@
 import { TReview } from '../../mocks/types';
-import ReviewsItem from '../reviews-item/reviews-item';
+import MemoReviewsItem from '../reviews-item/reviews-item';
 
 export type ReviewsListProps = {
   reviews: TReview[];
@@ -12,7 +12,7 @@ function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
 
   return (
     <ul className="reviews__list">
-      {sortedReviews.map((review) => <ReviewsItem review={review} key={review.id}/>)}
+      {sortedReviews.map((review) => <MemoReviewsItem review={review} key={review.id}/>)}
     </ul>
   );
 }

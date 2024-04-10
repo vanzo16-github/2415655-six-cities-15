@@ -12,7 +12,7 @@ function OfferRating({ card }: OfferRatingProps): JSX.Element {
         <span style={{width: `${Math.round(rating) * 20}%`}}></span>
         <span className="visually-hidden">Rating</span>
       </div>
-      <span className="offer__rating-value rating__value">4.8</span>
+      <span className="offer__rating-value rating__value">{rating}</span>
     </div>
   );
 }

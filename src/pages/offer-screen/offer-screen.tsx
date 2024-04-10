@@ -47,7 +47,7 @@ function OfferScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  const {images, title, isPremium, maxAdults, type, bedrooms, goods, price, description} = offerInfo;
+  const {images, isPremium, maxAdults, type, bedrooms, goods, price, description} = offerInfo;
   return (
     <div className="page">
       <Header/>
@@ -57,7 +57,7 @@ function OfferScreen(): JSX.Element {
           <div className="offer__container container">
             <div className="offer__wrapper">
               {isPremium && <div className="offer__mark"><span>Premium</span></div>}
-              <OfferTitle title={title} card={offerInfo}/>
+              <OfferTitle card={offerInfo}/>
               <OfferRating card={offerInfo}/>
               <OfferFeatures maxAdults={maxAdults} type={type} bedrooms={bedrooms}/>
               <OfferPrice price={price}/>

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { TReview } from '../../mocks/types';
 
 export type ReviewsItemProps = {
@@ -9,7 +10,8 @@ const formatDate = (dateString: string) => {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 };
 
-function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
+// eslint-disable-next-line react/display-name
+const MemoReviewsItem = memo(({ review }: ReviewsItemProps): JSX.Element => {
   const {date, user, comment, rating} = review;
   return (
     <li className="reviews__item">
@@ -35,6 +37,6 @@ function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
       </div>
     </li>
   );
-}
+});
 
-export default ReviewsItem;
+export default MemoReviewsItem;

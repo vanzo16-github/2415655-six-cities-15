@@ -20,8 +20,10 @@ type initialStateType = {
   userInfo: TUserLogIn | null;
   offer: {
     offerInfo: TCard | null;
+    card: TCard[];
     nearbyCards: TOpenCard[];
     comments: TReview[];
+    isFavorite: boolean;
   };
 };
 
@@ -43,6 +45,8 @@ const initialState: initialStateType = {
     offerInfo: null,
     nearbyCards: [],
     comments: [],
+    isFavorite: false,
+    card: []
   },
 };
 
@@ -84,18 +88,13 @@ const reducer = createReducer(initialState, (builder)=> {
   builder.addCase(fetchFavoriteCards.fulfilled, (state, action) => {
     state.favorite.cards = action.payload;
   });
-  // builder.addCase(changeFavoriteStatus.fulfilled, (state, action) => {
-  //   state.favorite.isLoadingChangeStatus = false;
-  //   if (action.payload.isFavorite) {
-  //     state.favorite.cards.push(action.payload);
-  //   } else {
-  //     state.favorite.cards = state.favorite.cards.filter((item) => item.id !== action.payload.id);
-  //   }
-  // });
   builder.addCase(changeFavoriteStatus.fulfilled, (state, action) => {
     const index = state.offers.cards.findIndex((item) => item.id === action.payload.id);
     if (index !== -1) {
       state.offers.cards[index].isFavorite = action.payload.isFavorite;
+    }
+    if (state.offer.offerInfo && state.offer.offerInfo.id === action.payload.id) {
+      state.offer.offerInfo.isFavorite = action.payload.isFavorite;
     }
   });
 });
