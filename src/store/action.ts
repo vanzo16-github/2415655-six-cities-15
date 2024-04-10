@@ -30,3 +30,5 @@ export const setComments = createAction<TReview[]>('offer/setOfferComments');
 export const setUserInfo = createAction<TUserLogIn | null>('user/setLoggedUserInfo');
 
 export const getFavoriteCards = createAction<{cards: TOpenCard[]}>('favorites/getCards');
+
+export const updateOffer = createAction<TCard>('offers/updateOffer');

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
@@ -13,10 +13,23 @@ function Header(): JSX.Element {
   const {pathname} = useLocation();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   const isLoginPage = pathname === AppRoute.Login;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+  const isFavoritePage = pathname === AppRoute.Favorites;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
 
   const handleLogOut = () => {
-    dispatch(logoutAction());
+    dispatch(logoutAction())
+      .then((response) => {
+        if (response.meta.requestStatus === 'fulfilled') {
+          if (isFavoritePage) {
+            navigate(AppRoute.Login);
+          } else {
+            navigate(AppRoute.Root);
+          }
+        }
+      });
   };
 
   return (

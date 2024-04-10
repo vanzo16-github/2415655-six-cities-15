@@ -114,3 +114,8 @@ export const RatingNames: {[index: string]: string} = {
   '4': 'good',
   '5': 'perfect'
 };
+
+export enum FavoritesStatus {
+  Added = 1,
+  Removed = 0
+}

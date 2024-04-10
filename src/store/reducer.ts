@@ -2,6 +2,7 @@ import { TCard, TOpenCard, TReview, TUserLogIn } from '../mocks/types';
 import { AuthorizationStatus, CITIES, CityName, SortOptions, TSortOptions } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
 import { changeSort, chooseCity, getCards, getFavoriteCards, setComments, setLoading, setNearOffers, setOffer, setUserInfo, switchAutorizationStatus, switchFavorite } from './action';
+import { changeFavoriteStatus, fetchFavoriteCards } from './api-actions';
 
 type initialStateType = {
   city: CityName;
@@ -12,6 +13,7 @@ type initialStateType = {
   favorite: {
     cards: TOpenCard[];
     isFavorite: boolean;
+    isLoadingChangeStatus: boolean;
   };
   sortOption: TSortOptions;
   authorizationStatus: AuthorizationStatus;
@@ -32,7 +34,8 @@ const initialState: initialStateType = {
   },
   favorite: {
     cards: [],
-    isFavorite: false
+    isFavorite: false,
+    isLoadingChangeStatus: false,
   },
   authorizationStatus: AuthorizationStatus.Unknown,
   userInfo: null,
@@ -77,6 +80,23 @@ const reducer = createReducer(initialState, (builder)=> {
   });
   builder.addCase(getFavoriteCards , (state, action) => {
     state.favorite.cards = action.payload.cards;
+  });
+  builder.addCase(fetchFavoriteCards.fulfilled, (state, action) => {
+    state.favorite.cards = action.payload;
+  });
+  // builder.addCase(changeFavoriteStatus.fulfilled, (state, action) => {
+  //   state.favorite.isLoadingChangeStatus = false;
+  //   if (action.payload.isFavorite) {
+  //     state.favorite.cards.push(action.payload);
+  //   } else {
+  //     state.favorite.cards = state.favorite.cards.filter((item) => item.id !== action.payload.id);
+  //   }
+  // });
+  builder.addCase(changeFavoriteStatus.fulfilled, (state, action) => {
+    const index = state.offers.cards.findIndex((item) => item.id === action.payload.id);
+    if (index !== -1) {
+      state.offers.cards[index].isFavorite = action.payload.isFavorite;
+    }
   });
 });
 
